@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp">
+
+
+    <TextView
+        android:fontFamily="@font/ccdongdong"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EEG NEW USER PAGE"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="30dp"
+        />
+
+    <EditText
+        android:id="@+id/editTextTextname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:hint="name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:hint="username(ID)"
+        android:inputType="textPersonName"/>
+
+    <EditText
+        android:id="@+id/editTextTextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:ems="10"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:hint="PASSWORD"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/editTextTextgender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="gender"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/editTextTextage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:hint="age"
+        android:inputType="textPassword"/>
+
+    <Button
+        android:fontFamily="@font/ccdongdong"
+        android:id="@+id/registerbutton"
+        android:layout_width="210dp"
+        android:layout_height="61dp"
+        android:background="@drawable/bin_red"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:drawableLeft="@drawable/custom_icon3"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:text="register"/>
+
+
+
+
+</LinearLayout>
