@@ -31,16 +31,17 @@
         <activity android:name="newusermodel_activity"/>
         <activity android:name="Filepass_newuser"/>
         <activity android:name="ResultfailActivity"/>
-        <activity android:name=".MainActivity"
-            android:configChanges="screenSize|orientation"> // 화면 전환시 에러 방지
+        <activity android:name=".BluetoothActivity"/>
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
+        <activity android:name=".MainActivity"/>
+        <service android:name=".SerialService"/>
+
     </application>
 
 </manifest>

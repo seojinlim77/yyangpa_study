@@ -13,6 +13,7 @@ interface Uploadfile {
         @Multipart
         @POST("/authenticate/check_user/")
         fun request(
+                //@Header("Authorization") user_token : String?,
                 @Part ("token") token: RequestBody,
                 @Part EEG : MultipartBody.Part?
         ): Call<Upfile>

@@ -1,19 +1,17 @@
 package com.example.kotlin_server_app
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.result_page.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Tag
-import java.lang.Thread.sleep
+
 
 class ResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,15 +20,13 @@ class ResultActivity : AppCompatActivity() {
         val TAG = "tokenlogin"
         var log_token_c : String
 
-        /////////////////////////////////////////////// 가져온 정보 확인
+        val sharedPreferences = getSharedPreferences("auto_token", 0)
+        val editor = sharedPreferences.edit()
 
-        var user_result = intent.getStringExtra("check")
-        var usertoken = intent.getStringExtra("usertoken")
-        val message2 = "Token "+ usertoken
-        println("resultactivity : userid : "+message2)
-
-
-        ///////////////////////////////////////////////
+        val token_s = sharedPreferences.getString("token", null)
+        val user_token = sharedPreferences.getString("ustoken",null)
+        println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<resultactivity : "+ user_token)
+        val real_token = "Token "+user_token
 
         logout_button.setOnClickListener {
             var retrofit = Retrofit.Builder()
@@ -44,8 +40,15 @@ class ResultActivity : AppCompatActivity() {
             //var checksign = "givemetoken"
             //val logout_b = Intent(this, ::class.java)
 
-            logouttoken.logout(message2).enqueue(object : Callback<Logoutt> { // 토큰 전송
+            logouttoken.logout(real_token).enqueue(object : Callback<Logoutt> { // 토큰 전송
                 override fun onResponse(call: Call<Logoutt>, response: Response<Logoutt>) {
+                    var logout_message = response.body() // 토큰 받아와서 저장
+                    if(logout_message?.code == "logout_success")
+                    {
+                        println("logok : <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"+logout_message?.code+"<<<<<<<<<<<<<<<<<<<<<<<<<")
+                        editor.clear()
+                        editor.apply()
+                    }
                     var dialog2 = AlertDialog.Builder(this@ResultActivity)
                     dialog2.setTitle("로그아웃")
                     dialog2.setMessage("성공")
@@ -63,7 +66,10 @@ class ResultActivity : AppCompatActivity() {
 
         result_home.setOnClickListener {
             val home_button = Intent(this, MainActivity::class.java)
-            startActivity(home_button) // home 으로 이동
+            startActivity(home_button)
+            //startActivity(home_button) // home 으로 이동
+            //System.exit(0)
+            finish()
         }
     }
 }

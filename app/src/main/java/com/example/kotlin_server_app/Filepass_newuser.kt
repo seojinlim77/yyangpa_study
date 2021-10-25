@@ -1,14 +1,18 @@
 package com.example.kotlin_server_app
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Environment
 import android.os.ParcelFileDescriptor
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_loginafter.*
+import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
@@ -27,70 +31,60 @@ import java.util.concurrent.TimeUnit
 class Filepass_newuser : AppCompatActivity() {
     val TAG: String = "Filepass"
 
+    private lateinit var sharedPreferencess : SharedPreferences
+    private lateinit var editors : SharedPreferences.Editor
 
-    //var myApplication: MyApplication = MyApplication()
-    var pfd: ParcelFileDescriptor? = null
-    var fileInputStream: FileInputStream? = null
-    var mOutputDir = "/storage/emulated/0/Download/NewTextFile.txt"
+    fun showPrograss(isShow:Boolean) {
+        if (isShow) loading_linear.visibility = View.VISIBLE
+        else loading_linear.visibility = View.GONE
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loginnew_after)
 
-        val ustoken = intent.getStringExtra("token")
-        var imgVwSelected: ImageView
-        println("token!!!!!!!!!!!!!!!!! " + ustoken)
-        println("str1: $ustoken lenghth: ${ustoken?.length}")
+        val sharedPreferences = getSharedPreferences("auto_token", 0) // 저장된 토큰 파일
+        val editor2 = sharedPreferences.edit()
+        val token_s = sharedPreferences.getString("ustoken", null)
+        println("모델 생성 페이지 토큰 : <<<<<<<<<<<<<<<<<<<<<<<<<<<<"+ token_s)
 
-        val extoken = "dcb457caacdcfe85db16143b2187dad56a4e89f6"
+        val clientBuilder = OkHttpClient.Builder()
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        clientBuilder.addInterceptor(loggingInterceptor)
+
+        val okHttpClient = OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.MINUTES)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .build()
+
+        showPrograss(false)
+
+        //val ustoken = intent.getStringExtra("ustoken")
+        //val username = intent.getStringExtra("username")
+        var retrofit = Retrofit.Builder()
+                .baseUrl("http://192.168.0.8:8000")
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
         /*
-        tokencheck.setOnClickListener {
-            var retrofit = Retrofit.Builder()
-                    .baseUrl("http://192.168.0.8:8000")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-
-            var tokencheck = retrofit.create(exxxx::class.java)
-
-            tokencheck.ex(ustoken).enqueue(object : Callback<ex_data> {
-                override fun onResponse(call: Call<ex_data>, response: Response<ex_data>) {
-                    var dialog = AlertDialog.Builder(this@Filepass_newuser)
-                }
-
-                override fun onFailure(call: Call<ex_data>, t: Throwable) {
-                    Log.e(TAG, "error : $t.message")
-                    var dialog = AlertDialog.Builder(this@Filepass_newuser)
-                    dialog.setTitle("전송실패!")
-                    dialog.setMessage("다시 시도 하시오")
-                    dialog.show()
-
-                }
-            })
-*/
             homebutton.setOnClickListener { // home 버튼
-                val homeintent = Intent(this, MainActivity::class.java)
+                val homeintent = Intent(this, Filepass::class.java)
+                //homeintent.putExtra("username",username)
+                //homeintent.putExtra("ustoken",ustoken) // 토큰 전송
                 startActivity(homeintent) // home으로 이동
             }
+            */
 
             filepassbutton1.setOnClickListener { // 파일 전송 버튼
+                // intent 종류
                 val intent = Intent(this, newusermodel_activity::class.java)
                 val intent2 = Intent(this,ResultfailActivity::class.java)
-                val clientBuilder = OkHttpClient.Builder()
-                val loggingInterceptor = HttpLoggingInterceptor()
-                loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-                clientBuilder.addInterceptor(loggingInterceptor)
+                val auth_page = Intent(this,Filepass::class.java) // 인증 페이지로 이동
 
-                val okHttpClient = OkHttpClient.Builder()
-                        .connectTimeout(10, TimeUnit.MINUTES)
-                        .readTimeout(30, TimeUnit.SECONDS)
-                        .writeTimeout(30, TimeUnit.SECONDS)
-                        .build()
-
-                var retrofit = Retrofit.Builder()
-                        .baseUrl("http://192.168.0.8:8000")
-                        .client(okHttpClient)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build()
+                showPrograss(true)
 
                 val File = getFilesDir();
                 val getFile = File.getPath();
@@ -98,69 +92,60 @@ class Filepass_newuser : AppCompatActivity() {
                 println("internalfilepath : " + getFile)
 
 
-                var dialog1 = AlertDialog.Builder(this@Filepass_newuser)
-                dialog1.setTitle("여기까지 오케이1")
-                dialog1.setMessage("데이터 전송중1")
-                dialog1.show()
-
                 var fileuploadservice = retrofit.create(Uploadfile_new::class.java)
 
 
-                // val files = Environment.DIRECTORY_DOWNLOADS
-                val file1 =
-                        java.io.File("/data/user/0/com.example.kotlin_server_app/files/NewTextFile.txt")
-                val file2 =
-                        java.io.File("/data/user/0/com.example.kotlin_server_app/files/BSW_200629_new.mat")
-                val file3 =
-                        java.io.File("/data/user/0/com.example.kotlin_server_app/files/BSW_200701.mat")
+                val file2 = java.io.File("/data/user/0/com.example.kotlin_server_app/files/BSW_200629_new.mat")
                 val filepath = "/storage/emulated/0/Download/NewTextFile.txt"
                 val file = java.io.File("/storage/emulated/0/Download/NewTextFile.txt") // 파일의 경로 설정
 
 
-                var dialog2 = AlertDialog.Builder(this@Filepass_newuser)
-                dialog2.setTitle("데이터-전송")
-                dialog2.setMessage("데이터 전송중2")
-                dialog2.show()
-
-
+                //val token_s = sharedPreferencess.getString("token", null)
                 val requestFile = RequestBody.create("*/*".toMediaTypeOrNull(), file2)
-                val requestFile1 = RequestBody.create("text/plain".toMediaTypeOrNull(), ustoken.toString())
+                val requestFile1 = RequestBody.create("text/plain".toMediaTypeOrNull(), token_s.toString()) // 형변환
                 // 일단 multipart 사용하기 위해서 requestbody로 변환
 
                 val body1 = MultipartBody.Part.createFormData("EEG", file2.name, requestFile)
                 val expath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
-                //val usstoken = MultipartBody.Part.createFormData("token",extoken,requestFile1)
                 java.io.File(Environment.getExternalStorageDirectory().absolutePath + "/Download/NewTextFile.txt")
-
-                //val titlePart: MultipartBody.Part = createFormData.createFormData("title", title)
-
 
 
                 println("경로 : " + expath)
 
                 fileuploadservice.request(requestFile1, body1).enqueue(object : Callback<Upfile> {
                     override fun onResponse(call: Call<Upfile>, response: Response<Upfile>) {
-                        var dialog = AlertDialog.Builder(this@Filepass_newuser)
-                        //var log_token = response.body() // 토큰 받아와서 저장
+                        var makemodel_ok = AlertDialog.Builder(this@Filepass_newuser) //
+
                         // 저장되었는지 확인
+                        showPrograss(false)
                         if (response.body()?.code == "saveok") {
-                            dialog.setTitle("전송성공!")
-                            dialog.setMessage("데이터 전송")
-                            dialog.show()
-                            intent.putExtra("token", ustoken) // 유저 데이터 계속 전달
-                            startActivityForResult(intent, 1) // 모델 생성 성공시 확인 페이지로 이동
+                            makemodel_ok.setTitle("파일이 생성되었습니다. 인증 페이지로 이동합니다.")
+                            makemodel_ok.setPositiveButton("네", DialogInterface.OnClickListener { dialog, which ->
+                                //auth_page.putExtra("ustoken", ustoken) // 유저 데이터 계속 전달
+                                //auth_page.putExtra("username",username)
+                                //startActivityForResult(auth_page, 1) // 모델 생성 성공시 확인 페이지로 이동
+                                startActivity(auth_page)
+                            })
+                            makemodel_ok.setNegativeButton("아니오", DialogInterface.OnClickListener { dialog, which->
+                            })
+                            makemodel_ok.show()
+                            //dialog.setTitle("모델 생성 성공!")
+                            //dialog.setMessage("생성 성공")
+                            //dialog.show()
+                            //auth_page.putExtra("ustoken", ustoken) // 유저 데이터 계속 전달
+                            //auth_page.putExtra("username",username)
+                            //startActivityForResult(auth_page, 1) // 모델 생성 성공시 확인 페이지로 이동
+                            finish()
                         } else {
-                            println("인증 실패")
-                            intent2.putExtra("token", ustoken) // 유저 데이터 계속 전달
-                            startActivityForResult(intent2, 1) // 모델 생성 성공시 확인 페이지로 이동
+                            println("모델 생성 실패")
                         }
                     }
 
                     override fun onFailure(call: Call<Upfile>, t: Throwable) {
                         Log.e(TAG, "error : $t.message")
                         var dialog = AlertDialog.Builder(this@Filepass_newuser)
-                        dialog.setTitle("전송실패!")
+                        dialog.setTitle("모델 생성 실패!")
                         dialog.setMessage("다시 시도 하시오")
                         dialog.show()
 

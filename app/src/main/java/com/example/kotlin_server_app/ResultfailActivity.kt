@@ -20,8 +20,8 @@ class ResultfailActivity : AppCompatActivity() {
         var log_token_c : String
 
         /////////////////////////////////////////////// 가져온 정보 확인
-        var usertoken = intent.getStringExtra("usertoken")
-        val message2 = "Token "+ usertoken
+        var ustoken = intent.getStringExtra("ustoken")
+        val message2 = "Token "+ ustoken
         //println("resultactivity : userid : "+message2)
         ///////////////////////////////////////////////
 
@@ -55,8 +55,9 @@ class ResultfailActivity : AppCompatActivity() {
         }
 
         result_home2.setOnClickListener {
-            val home_button = Intent(this, MainActivity::class.java)
-            startActivity(home_button) // home 으로 이동
+            val home_button = Intent(this, Filepass::class.java)
+            //startActivity(home_button) // home 으로 이동
+            finish()
         }
     }
 }

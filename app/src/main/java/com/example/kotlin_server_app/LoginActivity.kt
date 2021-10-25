@@ -14,6 +14,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_main.*
 
 class LoginActivity : AppCompatActivity() {
+    /*
     var auth: FirebaseAuth? = null
     val GOOGLE_REQUEST_CODE = 99
     val TAG = "googleLogin"
@@ -74,4 +75,5 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+    */
 }

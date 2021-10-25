@@ -1,5 +1,6 @@
 package com.example.kotlin_server_app
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -36,8 +37,9 @@ class Newperson : AppCompatActivity(){ // 회원가입 페이지
 
         var newuserservice = retrofit.create(Newuser::class.java)
 
+
        registerbutton.setOnClickListener {
-           val intent = Intent(this,MainActivity::class.java) // 회원가입 후 로그인 페이지로 이동
+           val intent = Intent(this,MainActivity::class.java) // 회원가입 후 모델 생성 페이지로 이동
 
            var newname = editTextTextname.text.toString()
            var newId = editTextTextPersonName.text.toString()
@@ -46,7 +48,7 @@ class Newperson : AppCompatActivity(){ // 회원가입 페이지
            var buff = editTextTextage.text.toString()
            var newage = Integer.parseInt(buff)
 
-           newuserservice.requestLogin(newId,newPw,newname,newage,newgender).enqueue(object: Callback<New>{
+           newuserservice.requestLogin(newId,newPw,newname,buff,newgender).enqueue(object: Callback<New>{
                override fun onFailure(call: Call<New>, t: Throwable) {
                    // 웹 통신에 실패시 실행
                    var dialog = AlertDialog.Builder(this@Newperson)
@@ -57,25 +59,34 @@ class Newperson : AppCompatActivity(){ // 회원가입 페이지
                override fun onResponse(call: Call<New>, response: Response<New>) {
                    var NewU = response.body() // msuccess
                    var dialog = AlertDialog.Builder(this@Newperson)
-                   if(NewU?.msuccess != null) // 넘어오는 값이 아무것도 없을 경우 // 애매하긴 함...
+                   if(NewU?.code != null) // 넘어오는 값이 아무것도 없을 경우 // 애매하긴 함...
                    {
                        dialog.setTitle("경고!")
-                       dialog.setMessage("response : " + NewU + " 정보를 정확시 다 작성하세요.")
+                       dialog.setMessage("정보를 다시 확인하세요.")
                        //dialog.setMessage("정보를 정확시 다 작성하세요.")
                        dialog.show()
+
+                       editTextTextname.setText("")
+                       editTextTextPersonName.setText("")
+                       editTextTextPassword.setText("")
+                       editTextTextgender.setText("")
+                       editTextTextage.setText("")
                    }
                    else
                    {
-                       dialog.setTitle("성공!")
-                       dialog.setMessage("회원가입을 축하합니다.")
-                       dialog.show()
-                       startActivity(intent) // 파일 페이지로 이동
+                       var file_messages = androidx.appcompat.app.AlertDialog.Builder(this@Newperson)
+                       //var file_messages = AlertDialog.Builder(this@Newperson)
+                       file_messages.setTitle("회원가입이 성공! 로그인 페이지로 이동합니다.")
+                       file_messages.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                           startActivity(intent)
+                       })
+                       file_messages.setNegativeButton("아니오", DialogInterface.OnClickListener { dialog, which->
+                       })
+                       file_messages.show()
+                       //finish()
                    }
                }
            })
-
-
        }
-
     }
 }

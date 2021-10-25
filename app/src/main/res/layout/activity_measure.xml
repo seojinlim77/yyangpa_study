@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--  tools:ignore="MissingConstraints"란?  -->
+    <!--  ConstraintLayout에서 아래 자식 View가 위치하지 않아서 발생하는 오류 무시  -->
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="100dp"
+        android:id="@+id/start_timer"
+        android:layout_marginTop="160dp"
+        android:layout_marginStart="180dp"
+        android:text=""
+        android:textSize="50dp"
+        android:textColor="@color/colorPrimaryDark"
+        />
+
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="350dp" />
+
+    <Button
+        android:id="@+id/start"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/login_round"
+        android:onClick="OnClickBtnStart"
+        android:text="측정하기" />
+
+    <Button
+        android:id="@+id/end"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="150dp"
+        android:layout_toEndOf="@+id/start"
+        android:onClick="OnClickBtnEnd"
+        android:text="멈추기" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_toEndOf="@+id/start"
+        android:onClick="OnClickBtnSave"
+        android:text="저장하기" />
+
+</RelativeLayout>
