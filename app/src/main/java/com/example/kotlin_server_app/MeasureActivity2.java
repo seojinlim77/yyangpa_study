@@ -41,7 +41,7 @@ import static com.example.kotlin_server_app.Utils.hexToVoltage;
 import static com.example.kotlin_server_app.Utils.writeAllData;
 
 // Fragment 쪽 코드
-public class MeasureActivity extends AppCompatActivity implements ServiceConnection, SerialListener {
+public class MeasureActivity2 extends AppCompatActivity implements ServiceConnection, SerialListener {
     private ArrayList<Float> VoltageList = new ArrayList<Float>();
 
     private enum Connected { False, Pending, True }
@@ -62,7 +62,7 @@ public class MeasureActivity extends AppCompatActivity implements ServiceConnect
 
     AlertDialog waitingDialog;
 
-    static int time = 10; // API 결과에 따라 10초
+    static int time = 600; // API 결과에 따라 10분
     static int start_time = 4;
 
     Timer timer, start_timer;
@@ -119,7 +119,7 @@ public class MeasureActivity extends AppCompatActivity implements ServiceConnect
             @Override
             public void run() {
                 start_time--;
-                MeasureActivity.this.runOnUiThread(new Runnable() {
+                MeasureActivity2.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (start_time == 0) startTimeText.setText("");
@@ -143,7 +143,7 @@ public class MeasureActivity extends AppCompatActivity implements ServiceConnect
 
                 if (time < 60) {
                     String timeString = String.valueOf(time) + "초 후에 측정이 종료됩니다.";
-                    MeasureActivity.this.runOnUiThread(new Runnable() {
+                    MeasureActivity2.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             timeText.setText(timeString);
@@ -158,14 +158,13 @@ public class MeasureActivity extends AppCompatActivity implements ServiceConnect
                         Intent intent = new Intent(getBaseContext(), auth_fin.class); // 인증 페이지로 이동
                         startActivity(intent);
 
-
                         timer.cancel();
                     }
                 }
                 else {
                     int min = time / 60;
                     String timeString = String.valueOf(min) + "분 후에 측정이 종료됩니다.";
-                    MeasureActivity.this.runOnUiThread(new Runnable() {
+                    MeasureActivity2.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             timeText.setText(timeString);

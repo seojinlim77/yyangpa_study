@@ -64,19 +64,10 @@ class Filepass_newuser : AppCompatActivity() {
         //val ustoken = intent.getStringExtra("ustoken")
         //val username = intent.getStringExtra("username")
         var retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.0.8:8000")
+                .baseUrl("http://172.30.1.3:8000")
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-
-        /*
-            homebutton.setOnClickListener { // home 버튼
-                val homeintent = Intent(this, Filepass::class.java)
-                //homeintent.putExtra("username",username)
-                //homeintent.putExtra("ustoken",ustoken) // 토큰 전송
-                startActivity(homeintent) // home으로 이동
-            }
-            */
 
             filepassbutton1.setOnClickListener { // 파일 전송 버튼
                 // intent 종류

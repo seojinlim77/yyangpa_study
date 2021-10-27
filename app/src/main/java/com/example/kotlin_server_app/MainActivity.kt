@@ -51,12 +51,12 @@ class MainActivity : AppCompatActivity() {
 
         // 자동로그인
         if (token_check != null) {
-            startActivity(bluetooth_active); // 토큰 존재시 파일 받는 페이지로 이동
+            startActivity(bluetooth_active); // 토큰 존재시 파일 받는 페이지로 이동 (블루투스)
         }
 
         // retrofit 객체 생성
         var retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.0.8:8000")
+                .baseUrl("http://172.30.1.3:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity() {
                                 }
 
                                 showPrograss(false)
-                                startActivity(bluetooth_active) // 토큰을 가지고 모듈 선택페이지 이동
+                                startActivity(authentication_page) // 인증 이동
                                 finish()
                             }
 

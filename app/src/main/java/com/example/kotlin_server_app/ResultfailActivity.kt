@@ -1,5 +1,6 @@
 package com.example.kotlin_server_app
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -19,15 +20,20 @@ class ResultfailActivity : AppCompatActivity() {
         val TAG = "tokenlogin"
         var log_token_c : String
 
-        /////////////////////////////////////////////// 가져온 정보 확인
-        var ustoken = intent.getStringExtra("ustoken")
-        val message2 = "Token "+ ustoken
-        //println("resultactivity : userid : "+message2)
-        ///////////////////////////////////////////////
+        val sharedPreferences = getSharedPreferences("auto_token", 0)
+        val editor = sharedPreferences.edit()
+
+        val token_s = sharedPreferences.getString("token", null)
+        val user_token = sharedPreferences.getString("ustoken",null)
+        println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<resultactivity : "+ user_token)
+
+        var exit_message = AlertDialog.Builder(this@ResultfailActivity)
+
+        val real_token = "Token "+user_token
 
         logout_button2.setOnClickListener {
             var retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.0.8:8000")
+                .baseUrl("http://172.30.1.3:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
@@ -37,7 +43,7 @@ class ResultfailActivity : AppCompatActivity() {
             //var checksign = "givemetoken"
             //val logout_b = Intent(this, ::class.java)
 
-            logouttoken.logout(message2).enqueue(object : Callback<Logoutt> { // 토큰 전송
+            logouttoken.logout(real_token).enqueue(object : Callback<Logoutt> { // 토큰 전송
                 override fun onResponse(call: Call<Logoutt>, response: Response<Logoutt>) {
                     var dialog2 = AlertDialog.Builder(this@ResultfailActivity)
                     dialog2.setTitle("로그아웃")
@@ -55,9 +61,13 @@ class ResultfailActivity : AppCompatActivity() {
         }
 
         result_home2.setOnClickListener {
-            val home_button = Intent(this, Filepass::class.java)
-            //startActivity(home_button) // home 으로 이동
-            finish()
+            exit_message.setTitle("정말로 종료하시겠습니까?")
+            exit_message.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                finish()
+            })
+            exit_message.setNegativeButton("아니오", DialogInterface.OnClickListener { dialog, which->
+            })
+            exit_message.show()
         }
     }
 }

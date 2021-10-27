@@ -60,8 +60,6 @@
 
     </LinearLayout>
 
-
-
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -81,19 +79,6 @@
         android:background="@drawable/bin_filepass"
         android:text="인증"
         android:textSize="30dp" />
-
-    <Button
-        android:fontFamily="@font/ccdongdong"
-        android:id="@+id/homebutton"
-        android:textColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/bin_filepass"
-        android:text="Home"
-        android:textSize="30dp" />
-
-
 
 </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.example.kotlin_server_app
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -26,11 +27,13 @@ class ResultActivity : AppCompatActivity() {
         val token_s = sharedPreferences.getString("token", null)
         val user_token = sharedPreferences.getString("ustoken",null)
         println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<resultactivity : "+ user_token)
+        var exit_message = AlertDialog.Builder(this@ResultActivity)
+
         val real_token = "Token "+user_token
 
         logout_button.setOnClickListener {
             var retrofit = Retrofit.Builder()
-                    .baseUrl("http://192.168.0.8:8000")
+                    .baseUrl("http://172.30.1.3:8000")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
 
@@ -65,11 +68,13 @@ class ResultActivity : AppCompatActivity() {
         }
 
         result_home.setOnClickListener {
-            val home_button = Intent(this, MainActivity::class.java)
-            startActivity(home_button)
-            //startActivity(home_button) // home 으로 이동
-            //System.exit(0)
-            finish()
+            exit_message.setTitle("정말로 종료하시겠습니까?")
+            exit_message.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                finish()
+            })
+            exit_message.setNegativeButton("아니오", DialogInterface.OnClickListener { dialog, which->
+            })
+            exit_message.show()
         }
     }
 }

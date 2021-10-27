@@ -31,7 +31,8 @@
         <activity android:name="newusermodel_activity"/>
         <activity android:name="Filepass_newuser"/>
         <activity android:name="ResultfailActivity"/>
-        <activity android:name=".BluetoothActivity"/>
+        <activity android:name="BluetoothActivity"/>
+        <activity android:name="MeasureActivity"/>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

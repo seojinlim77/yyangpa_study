@@ -29,7 +29,7 @@ class Newperson : AppCompatActivity(){ // 회원가입 페이지
         clientBuilder.addInterceptor(loggingInterceptor)
 
         var retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.0.8:8000")
+                .baseUrl("http://172.30.1.3:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(clientBuilder.build())
                 .build()

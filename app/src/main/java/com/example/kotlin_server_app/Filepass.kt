@@ -55,6 +55,7 @@ class Filepass : AppCompatActivity() {
 
         showPrograss(false)
 
+        val bluetoothpage_ten = Intent(this,BluetoothActivity::class.java)
         val sharedPreferences = getSharedPreferences("auto_token", 0) // 자동 로그인 토큰 파일
         val editor = sharedPreferences.edit()
         val token_check = sharedPreferences.getString("token", null)
@@ -62,26 +63,13 @@ class Filepass : AppCompatActivity() {
         //val user_name = sharedPreferences.getString("username",null)
         val checktoken = "Token "+token_s
         val checktoken2 = "Token "+token_check
+        val ten_seconds = Intent(this,BluetoothActivity::class.java) // 10초 측정
+        val ten_minutes = Intent(this,BluetoothActivity2::class.java) // measure2로 이동 (10분 측정)
 
         println("????????????????????????????????????/"+token_s)
 
         if (token_check != null) { //자동로그인으로 들어온경우
             val makemodel = Intent(this,Filepass_newuser::class.java)
-
-            homebutton.setOnClickListener { // 이거 없앨 예정
-                var file_messages = AlertDialog.Builder(this@Filepass)
-                val homeintent = Intent(this, Filepass_newuser::class.java)
-                //homeintent.putExtra("username",user_name) // 유저 아이디 전송
-                homeintent.putExtra("ustoken",token_check) // 토큰 전송
-
-                file_messages.setTitle("파일이 존재하지 않음 - 모델 생성 진행 하시겠습니까?")
-                file_messages.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
-                    startActivity(homeintent)
-                })
-                file_messages.setNegativeButton("아니오",DialogInterface.OnClickListener { dialog, which->
-                })
-                file_messages.show()
-            }
 
 
             filepassbutton1.setOnClickListener { // 파일 전송 버튼 // 인증 버튼
@@ -118,10 +106,14 @@ class Filepass : AppCompatActivity() {
                         if(response.body()?.code == 200) // 파일이 존재한다면
                         {
 
+                            startActivity(ten_seconds) // 10초 측정하는 곳으로 이동
+
+                            /*
+
                             var fileuploadservice = retrofit.create(Uploadfile::class.java)
 
-                            val file2 = File("/data/user/0/com.example.kotlin_server_app/files/BSW_200629_new.mat")
-                            val requestFile = RequestBody.create("*/*".toMediaTypeOrNull(), file2)
+                            val file2 = File("/data/user/0/com.example.kotlin_server_app/files/ECG.cvs")
+                            val requestFile = RequestBody.create("*".toMediaTypeOrNull(), file2)
                             val requestFile1 = RequestBody.create("text/plain".toMediaTypeOrNull(), token_check.toString())
 
                             val body1 = MultipartBody.Part.createFormData("EEG", file2.name, requestFile)
@@ -136,16 +128,10 @@ class Filepass : AppCompatActivity() {
                                     if (response.body()?.code == "authok") { // 인증 성공
 
                                         showPrograss(false)
-                                        //dialog.setTitle("==인증중==")
-                                        //dialog.setMessage("인증 성공!!")
-                                        //dialog.show()
-                                        //intent.putExtra("username",user_name)
-                                        //intent.putExtra("ustoken", token_check) // 유저 데이터 계속 전달
                                         startActivity(intent) // 인증 성공시 성공 페이지로 이동
                                         finish()
                                     } else {
                                         println("인증 실패")
-                                        //intent2.putExtra("ustoken", token_check) // 유저 데이터 계속 전달
                                         startActivity(intent2) // 인증 실패시 실패 페이지로 이동
                                         finish()
                                     }
@@ -160,6 +146,7 @@ class Filepass : AppCompatActivity() {
 
                                 }
                             })
+                            */
 
                         }
                         else if(response.body()?.code == 400)
@@ -167,8 +154,7 @@ class Filepass : AppCompatActivity() {
                             showPrograss(false)
                             file_message.setTitle("파일이 존재하지 않음 - 모델 생성 진행 하시겠습니까?")
                             file_message.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
-                                //makemodel.putExtra("ustoken",token_check) // 토큰 전송
-                                startActivity(makemodel)
+                                startActivity(ten_minutes) // 10분분측정 페이지로 이동 // measure2로 이동
                             })
                             file_message.setNegativeButton("아니오",DialogInterface.OnClickListener { dialog, which->
                             })
@@ -193,26 +179,6 @@ class Filepass : AppCompatActivity() {
         else { // 로그인 후 들어온 경우 ( 자동로그인 x )
 
             val makemodels = Intent(this, Filepass_newuser::class.java)
-
-            /*
-            homebutton.setOnClickListener { // 이거 없앨 예정
-                var file_messages = AlertDialog.Builder(this@Filepass)
-                val homeintent = Intent(this, Filepass_newuser::class.java)
-                //homeintent.putExtra("username", username)
-                homeintent.putExtra("ustoken", token_s) // 토큰 전송
-
-                file_messages.setTitle("파일이 존재하지 않음 - 모델 생성 진행 하시겠습니까?")
-                file_messages.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
-                    startActivity(homeintent)
-                })
-                file_messages.setNegativeButton("아니오", DialogInterface.OnClickListener { dialog, which ->
-                })
-                file_messages.show()
-
-                //startActivity(homeintent) // home으로 이동
-            }
-             */
-
 
             filepassbutton1.setOnClickListener { // 파일 전송 버튼 // 인증 버튼
                 // intent 종류
@@ -244,25 +210,14 @@ class Filepass : AppCompatActivity() {
                 // 파일 존재 확인
                 filecheckservice.check(checktoken).enqueue(object : Callback<file_check_request> {
                     override fun onResponse(call: Call<file_check_request>, response: Response<file_check_request>) {
-                        println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+response.body()?.code)
                         if (response.body()?.code == 200) { // 파일 존재
-                            //file_message.setTitle(" == 파일이 존재합니다. 인증을 진행합니다. == ")
-                            //file_message.show()
 
-                            val File = getFilesDir();
-                            val getFile = File.getPath();
-                            println("internalfilepath : " + File)
-                            println("internalfilepath : " + getFile)
-
+                            startActivity(ten_seconds) // 10초 측정하는 곳으로 이동
+                            /*
                             var fileuploadservice = retrofit.create(Uploadfile::class.java)
+                            val file2 = File("/data/user/0/com.example.kotlin_server_app/files/ECG.csv")
 
-                            // val files = Environment.DIRECTORY_DOWNLOADS
-                            val file2 = File("/data/user/0/com.example.kotlin_server_app/files/BSW_200629_new.mat")
-                            val filepath = "/storage/emulated/0/Download/NewTextFile.txt"
-                            val file = File("/storage/emulated/0/Download/NewTextFile.txt") // 파일의 경로 설정
-
-
-                            val requestFile = RequestBody.create("*/*".toMediaTypeOrNull(), file2)
+                            val requestFile = RequestBody.create("*".toMediaTypeOrNull(), file2)
                             val requestFile1 = RequestBody.create("text/plain".toMediaTypeOrNull(), token_s.toString())
                             val body1 = MultipartBody.Part.createFormData("EEG", file2.name, requestFile)
                             val expath = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -277,12 +232,10 @@ class Filepass : AppCompatActivity() {
                                     println("result <<<<<<<<<<<<<<<<<<<<<<<<" + response.body()?.code)
                                     if (response.body()?.code == "authok") {
                                         showPrograss(false)
-                                        //intent.putExtra("ustoken", token_s) // 유저 데이터 계속 전달
                                         startActivity(intent) // 인증 성공시 성공 페이지로 이동
                                         finish()
                                     } else {
                                         println("인증 실패")
-                                        //intent2.putExtra("ustoken", token_s) // 유저 데이터 계속 전달
                                         startActivity(intent2) // 인증 실패시 실패 페이지로 이동
                                         finish()
                                     }
@@ -296,13 +249,12 @@ class Filepass : AppCompatActivity() {
 
                                 }
                             })
+                            */
                         } else if (response.body()?.code == 400) {
                             showPrograss(false)
                             file_message.setTitle("파일이 존재하지 않음 - 모델 생성 진행 하시겠습니까?")
                             file_message.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
-                                //makemodels.putExtra("username", username)
-                                //makemodels.putExtra("ustoken", token_s) // 토큰 전송
-                                startActivity(makemodels)
+                                startActivity(ten_minutes) // 10분 측정하느 곳으로 이동
                             })
                             file_message.setNegativeButton("아니오", DialogInterface.OnClickListener { dialog, which ->
                             })

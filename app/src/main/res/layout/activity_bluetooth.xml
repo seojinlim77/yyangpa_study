@@ -10,7 +10,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="#FAFAFA"
-        android:text="Select EEG module"
+        android:text="Select ECG module"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20dp"
