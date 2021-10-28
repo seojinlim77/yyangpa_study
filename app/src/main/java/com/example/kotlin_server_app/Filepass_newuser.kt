@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Environment
 import android.os.ParcelFileDescriptor
+import android.os.SystemClock.sleep
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -64,7 +65,7 @@ class Filepass_newuser : AppCompatActivity() {
         //val ustoken = intent.getStringExtra("ustoken")
         //val username = intent.getStringExtra("username")
         var retrofit = Retrofit.Builder()
-                .baseUrl("http://172.30.1.3:8000")
+                .baseUrl("http://223.194.46.83:25900")
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -77,32 +78,21 @@ class Filepass_newuser : AppCompatActivity() {
 
                 showPrograss(true)
 
-                val File = getFilesDir();
-                val getFile = File.getPath();
-                println("internalfilepath : " + File)
-                println("internalfilepath : " + getFile)
-
-
                 var fileuploadservice = retrofit.create(Uploadfile_new::class.java)
-
-
                 val file2 = java.io.File("/data/user/0/com.example.kotlin_server_app/files/BSW_200629_new.mat")
-                val filepath = "/storage/emulated/0/Download/NewTextFile.txt"
-                val file = java.io.File("/storage/emulated/0/Download/NewTextFile.txt") // 파일의 경로 설정
-
-
-                //val token_s = sharedPreferencess.getString("token", null)
                 val requestFile = RequestBody.create("*/*".toMediaTypeOrNull(), file2)
                 val requestFile1 = RequestBody.create("text/plain".toMediaTypeOrNull(), token_s.toString()) // 형변환
                 // 일단 multipart 사용하기 위해서 requestbody로 변환
-
                 val body1 = MultipartBody.Part.createFormData("EEG", file2.name, requestFile)
                 val expath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
-                java.io.File(Environment.getExternalStorageDirectory().absolutePath + "/Download/NewTextFile.txt")
+                sleep(10)
 
+                showPrograss(false)
 
-                println("경로 : " + expath)
+                startActivity(auth_page)
+
+                /*
 
                 fileuploadservice.request(requestFile1, body1).enqueue(object : Callback<Upfile> {
                     override fun onResponse(call: Call<Upfile>, response: Response<Upfile>) {
@@ -143,6 +133,7 @@ class Filepass_newuser : AppCompatActivity() {
                     }
                 })
 
+                 */
 
             }
         }

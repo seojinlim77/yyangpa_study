@@ -92,7 +92,7 @@ class Filepass : AppCompatActivity() {
                         .build()
 
                 var retrofit = Retrofit.Builder()
-                        .baseUrl("http://192.168.0.8:8000")
+                        .baseUrl("http://223.194.46.83:25900")
                         .client(okHttpClient)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
@@ -105,22 +105,18 @@ class Filepass : AppCompatActivity() {
                     override fun onResponse(call: Call<file_check_request>, response: Response<file_check_request>) {
                         if(response.body()?.code == 200) // 파일이 존재한다면
                         {
-
+                            println("????????????????????????????999999999999999????????????"+response.body()?.code)
                             startActivity(ten_seconds) // 10초 측정하는 곳으로 이동
 
                             /*
-
                             var fileuploadservice = retrofit.create(Uploadfile::class.java)
-
                             val file2 = File("/data/user/0/com.example.kotlin_server_app/files/ECG.cvs")
                             val requestFile = RequestBody.create("*".toMediaTypeOrNull(), file2)
                             val requestFile1 = RequestBody.create("text/plain".toMediaTypeOrNull(), token_check.toString())
-
                             val body1 = MultipartBody.Part.createFormData("EEG", file2.name, requestFile)
                             val expath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
                             File(Environment.getExternalStorageDirectory().absolutePath+"/Download/NewTextFile.txt")
-
                             fileuploadservice.request(requestFile1,body1).enqueue(object : Callback<Upfile> {
                                 override fun onResponse(call: Call<Upfile>, response: Response<Upfile>) {
                                     var dialog = AlertDialog.Builder(this@Filepass)
@@ -136,7 +132,6 @@ class Filepass : AppCompatActivity() {
                                         finish()
                                     }
                                 }
-
                                 override fun onFailure(call: Call<Upfile>, t: Throwable) {
                                     Log.e(TAG,"error : $t.message")
                                     var dialog = AlertDialog.Builder(this@Filepass)
@@ -151,10 +146,11 @@ class Filepass : AppCompatActivity() {
                         }
                         else if(response.body()?.code == 400)
                         {
+                            println("????????????????????????????999999999999999????????????"+response.body()?.code)
                             showPrograss(false)
                             file_message.setTitle("파일이 존재하지 않음 - 모델 생성 진행 하시겠습니까?")
                             file_message.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
-                                startActivity(ten_minutes) // 10분분측정 페이지로 이동 // measure2로 이동
+                                startActivity(ten_minutes) // 10분측정 페이지로 이동 // measure2로 이동
                             })
                             file_message.setNegativeButton("아니오",DialogInterface.OnClickListener { dialog, which->
                             })
@@ -199,7 +195,7 @@ class Filepass : AppCompatActivity() {
                         .build()
 
                 var retrofit = Retrofit.Builder()
-                        .baseUrl("http://192.168.0.8:8000")
+                        .baseUrl("http://223.194.46.83:25900")
                         .client(okHttpClient)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()

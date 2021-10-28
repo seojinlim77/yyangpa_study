@@ -14,7 +14,8 @@ interface Uploadfile {
         @POST("/authenticate/check_user/")
         fun request(
                 //@Header("Authorization") user_token : String?,
-                @Part ("token") token: RequestBody,
+                //@Part ("token") token: RequestBody,
+                @Header("Authorization") token : String?,
                 @Part EEG : MultipartBody.Part?
         ): Call<Upfile>
 }

@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         // retrofit 객체 생성
         var retrofit = Retrofit.Builder()
-                .baseUrl("http://172.30.1.3:8000")
+                .baseUrl("http://223.194.46.83:25900")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
@@ -66,9 +66,6 @@ class MainActivity : AppCompatActivity() {
 
         new_user_button.setOnClickListener {
             val intent2 = Intent(this, Newperson::class.java)
-            var dialog = AlertDialog.Builder(this@MainActivity)
-            dialog.setTitle("회원 가입 페이지로 이동합니다.")
-            dialog.show()
             startActivity(intent2) // 회원 가입 페이지로 이동
         }
 

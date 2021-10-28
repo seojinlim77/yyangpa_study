@@ -33,15 +33,11 @@ class ResultActivity : AppCompatActivity() {
 
         logout_button.setOnClickListener {
             var retrofit = Retrofit.Builder()
-                    .baseUrl("http://172.30.1.3:8000")
+                    .baseUrl("http://223.194.46.83:25900")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
 
-            //var logoutService = retrofit.create(LogoutService::class.java)
             var logouttoken = retrofit.create(Logouttoken::class.java)
-
-            //var checksign = "givemetoken"
-            //val logout_b = Intent(this, ::class.java)
 
             logouttoken.logout(real_token).enqueue(object : Callback<Logoutt> { // 토큰 전송
                 override fun onResponse(call: Call<Logoutt>, response: Response<Logoutt>) {

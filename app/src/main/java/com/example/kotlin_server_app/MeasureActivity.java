@@ -69,7 +69,7 @@ public class MeasureActivity extends AppCompatActivity implements ServiceConnect
     TimerTask t, start_t;
 
     public static final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://172.30.1.3:8000")
+            .baseUrl("http://223.194.46.83:25900")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 

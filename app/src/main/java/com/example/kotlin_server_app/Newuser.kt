@@ -16,7 +16,7 @@ interface Newuser {
             @Field("password") password:String,
             @Field("name") name:String,
             //@Field("gender") gender:String,
-            @Field("age") age:String,
+            @Field("age") age:Int,
             @Field("gender") gender:String
     ): Call<New> // 아웃풋을 정의하는 곳
 }

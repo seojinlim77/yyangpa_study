@@ -69,7 +69,7 @@ public class MeasureActivity2 extends AppCompatActivity implements ServiceConnec
     TimerTask t, start_t;
 
     public static final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://172.30.1.3:8000")
+            .baseUrl("http://223.194.46.83:25900")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
@@ -155,7 +155,7 @@ public class MeasureActivity2 extends AppCompatActivity implements ServiceConnec
 
                         // 소켓 연결 종료 - 종료할지 연결 유지할지 고민.
                         disconnect();
-                        Intent intent = new Intent(getBaseContext(), auth_fin.class); // 인증 페이지로 이동
+                        Intent intent = new Intent(getBaseContext(), Filepass_newuser.class); // 모델 생성 페이지로 이동
                         startActivity(intent);
 
                         timer.cancel();

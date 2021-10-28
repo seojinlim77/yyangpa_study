@@ -33,6 +33,9 @@
         <activity android:name="ResultfailActivity"/>
         <activity android:name="BluetoothActivity"/>
         <activity android:name="MeasureActivity"/>
+        <activity android:name="BluetoothActivity2"/>
+        <activity android:name="MeasureActivity2"/>
+        <activity android:name="auth_fin"/>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

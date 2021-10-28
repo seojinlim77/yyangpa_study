@@ -9,7 +9,7 @@ interface Uploadfile_new {
     @Multipart
     @POST("/authenticate/make_model/")
     fun request(
-            @Part ("token") token: RequestBody,
+            @Header("Authorization") token : String?,
             @Part EEG: MultipartBody.Part?
     ): Call<Upfile>
 }
