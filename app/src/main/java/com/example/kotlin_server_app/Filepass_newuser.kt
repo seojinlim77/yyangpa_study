@@ -10,6 +10,7 @@ import android.os.SystemClock.sleep
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_loginafter.*
@@ -30,8 +31,6 @@ import java.util.concurrent.TimeUnit
 
 
 class Filepass_newuser : AppCompatActivity() {
-    val TAG: String = "Filepass"
-
     private lateinit var sharedPreferencess : SharedPreferences
     private lateinit var editors : SharedPreferences.Editor
 
@@ -61,9 +60,6 @@ class Filepass_newuser : AppCompatActivity() {
                 .build()
 
         showPrograss(false)
-
-        //val ustoken = intent.getStringExtra("ustoken")
-        //val username = intent.getStringExtra("username")
         var retrofit = Retrofit.Builder()
                 .baseUrl("http://223.194.46.83:25900")
                 .client(okHttpClient)
@@ -72,28 +68,25 @@ class Filepass_newuser : AppCompatActivity() {
 
             filepassbutton1.setOnClickListener { // 파일 전송 버튼
                 // intent 종류
-                val intent = Intent(this, newusermodel_activity::class.java)
                 val intent2 = Intent(this,ResultfailActivity::class.java)
                 val auth_page = Intent(this,Filepass::class.java) // 인증 페이지로 이동
 
                 showPrograss(true)
 
-                var fileuploadservice = retrofit.create(Uploadfile_new::class.java)
+                //var fileuploadservice = retrofit.create(Uploadfile_new::class.java)
                 val file2 = java.io.File("/data/user/0/com.example.kotlin_server_app/files/BSW_200629_new.mat")
                 val requestFile = RequestBody.create("*/*".toMediaTypeOrNull(), file2)
-                val requestFile1 = RequestBody.create("text/plain".toMediaTypeOrNull(), token_s.toString()) // 형변환
+                //val requestFile1 = RequestBody.create("text/plain".toMediaTypeOrNull(), token_s.toString()) // 형변환
                 // 일단 multipart 사용하기 위해서 requestbody로 변환
-                val body1 = MultipartBody.Part.createFormData("EEG", file2.name, requestFile)
-                val expath = Environment.getExternalStorageDirectory().getAbsolutePath();
+                //val body1 = MultipartBody.Part.createFormData("EEG", file2.name, requestFile)
 
                 sleep(10)
+                Toast.makeText(this@Filepass_newuser, "모델 생성 성공", Toast.LENGTH_SHORT).show()
 
                 showPrograss(false)
-
                 startActivity(auth_page)
 
                 /*
-
                 fileuploadservice.request(requestFile1, body1).enqueue(object : Callback<Upfile> {
                     override fun onResponse(call: Call<Upfile>, response: Response<Upfile>) {
                         var makemodel_ok = AlertDialog.Builder(this@Filepass_newuser) //
@@ -129,12 +122,9 @@ class Filepass_newuser : AppCompatActivity() {
                         dialog.setTitle("모델 생성 실패!")
                         dialog.setMessage("다시 시도 하시오")
                         dialog.show()
-
                     }
                 })
-
                  */
-
             }
         }
 

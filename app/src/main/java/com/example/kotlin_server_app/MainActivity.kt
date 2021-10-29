@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
 
         new_user_button.setOnClickListener {
-            val intent2 = Intent(this, Newperson::class.java)
+            val intent2 = Intent(this, Authfin::class.java)
             startActivity(intent2) // 회원 가입 페이지로 이동
         }
 
@@ -97,9 +97,9 @@ class MainActivity : AppCompatActivity() {
                     // 성공시 응답값을 받아옴
                     var login = response.body() // succensscheck
                     //var dialog = AlertDialog.Builder(this@MainActivity)
-                    println("#################################################login_check : " + login?.code + "#################################################")
+                    println("#################################################login_check : " + login?.token + "#################################################")
 
-                    if (login?.code != "login_success") {
+                    if (login?.token == null) {
                         var file_messages = androidx.appcompat.app.AlertDialog.Builder(this@MainActivity)
                         file_messages.setTitle("회원가입된 사용자가 아닙니다.")
                         file_messages.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
@@ -108,41 +108,40 @@ class MainActivity : AppCompatActivity() {
                         editTextTextPersonName.setText("")
                         editTextTextPassword.setText("")
                         showPrograss(false)
-                    } else {
-
+                    } else{
                         //sleep(5000)
                         // 로그인 후 토큰 얻어오고 페이지 넘어가기
+                        /*
                         var logoutService = retrofit.create(LogoutService::class.java)
                         logoutService.requestlogout(textId, textPw).enqueue(object : Callback<Logout> {
                             override fun onResponse(call: Call<Logout>, response: Response<Logout>) {
                                 var dialog = AlertDialog.Builder(this@MainActivity)
                                 var log_token = response.body() // 토큰 받아와서 저장
                                 var token2 = log_token?.code // 토큰 받아온 값
+                         */
 
-                                println("((((((((((((((((((((((((((((((((((((((("+token2)
+                                println("((((((((((((((((((((((((((((((((((((((("+login?.token)
                                 //////////////// 토큰 저장 /////////////////////////////
-                                editor.putString("ustoken",token2) // 유저의 토큰 파일로 저장
+                                editor.putString("ustoken",login?.token) // 유저의 토큰 파일로 저장
                                 editor.apply()
                                 Log.e(TAG, "쉐어드에 저장된 ustoken = " + sharedPreferences.getString("ustoken", ""))
                                 ///////////////////////////////////////////////////////
 
-                                if (log_token?.msg != null) {
-                                    println(log_token?.code)
+
                                     if (checkboxbutton.isChecked) { // 자동 로그인 버튼 클릭 되어있으면
-                                        editor.putString("token", token2)
+                                        editor.putString("token", login?.token)
                                         editor.putString("username",textId) // 아이디도 저장
                                         editor.apply()
                                         Log.e(TAG, "쉐어드에 저장된 token = " + sharedPreferences.getString("token", ""))
                                     }
-                                } else {
-                                    println("successok == NULL")
-                                }
+
 
                                 showPrograss(false)
                                 startActivity(authentication_page) // 인증 이동
                                 finish()
                             }
 
+                    /*
                             override fun onFailure(call: Call<Logout>, t: Throwable) {
                                 var dialog1 = AlertDialog.Builder(this@MainActivity)
                                 // callback.onFailure(t)
@@ -155,7 +154,7 @@ class MainActivity : AppCompatActivity() {
 
                         })
                     }
-
+*/
                 }
             })
 

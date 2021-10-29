@@ -24,18 +24,14 @@
         <activity android:name="Filepass"/>
         <activity android:name="Newperson"/>
         <activity android:name="ResultActivity"/>
-        <activity android:name="bluetooth_check"/>
         <activity android:name="Logoutpage"/>
-        <activity android:name="Tokenpass"/>
-        <activity android:name="Choosepage"/>
-        <activity android:name="newusermodel_activity"/>
         <activity android:name="Filepass_newuser"/>
         <activity android:name="ResultfailActivity"/>
         <activity android:name="BluetoothActivity"/>
         <activity android:name="MeasureActivity"/>
         <activity android:name="BluetoothActivity2"/>
         <activity android:name="MeasureActivity2"/>
-        <activity android:name="auth_fin"/>
+        <activity android:name="Authfin"/>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

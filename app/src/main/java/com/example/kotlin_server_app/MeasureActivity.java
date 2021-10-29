@@ -62,8 +62,8 @@ public class MeasureActivity extends AppCompatActivity implements ServiceConnect
 
     AlertDialog waitingDialog;
 
-    static int time = 10; // API 결과에 따라 10초
-    static int start_time = 4;
+    int time; // API 결과에 따라 10초
+    int start_time;
 
     Timer timer, start_timer;
     TimerTask t, start_t;
@@ -78,6 +78,9 @@ public class MeasureActivity extends AppCompatActivity implements ServiceConnect
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_measure);
+
+        time = 10;
+        start_time = 4;
 
         // Dialog
         waitingDialog = new SpotsDialog.Builder()
@@ -155,7 +158,7 @@ public class MeasureActivity extends AppCompatActivity implements ServiceConnect
 
                         // 소켓 연결 종료 - 종료할지 연결 유지할지 고민.
                         disconnect();
-                        Intent intent = new Intent(getBaseContext(), auth_fin.class); // 인증 페이지로 이동
+                        Intent intent = new Intent(getBaseContext(), Authfin.class); // 인증 페이지로 이동
                         startActivity(intent);
 
 

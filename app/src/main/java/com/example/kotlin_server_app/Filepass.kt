@@ -146,8 +146,6 @@ class Filepass : AppCompatActivity() {
                         }
                         else if(response.body()?.code == 400)
                         {
-                            println("????????????????????????????999999999999999????????????"+response.body()?.code)
-                            showPrograss(false)
                             file_message.setTitle("파일이 존재하지 않음 - 모델 생성 진행 하시겠습니까?")
                             file_message.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
                                 startActivity(ten_minutes) // 10분측정 페이지로 이동 // measure2로 이동
@@ -160,8 +158,8 @@ class Filepass : AppCompatActivity() {
                         {
                             file_message.setTitle("걍 오류")
                             file_message.show()
-                            makemodel.putExtra("ustoken",token_check) // 토큰 전송
-                            startActivity(makemodel) // 모델 생성 페이지 이동
+                            //makemodel.putExtra("ustoken",token_check) // 토큰 전송
+                            //startActivity(makemodel) // 모델 생성 페이지 이동
                         }
                     }
                     override fun onFailure(call: Call<file_check_request>, t: Throwable) {

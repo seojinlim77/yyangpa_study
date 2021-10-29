@@ -17,6 +17,7 @@
         android:orientation="vertical">
 
         <ProgressBar
+            android:layout_marginTop="200dp"
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
@@ -28,20 +29,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="인증중...." />
-
-        <Button
-            android:fontFamily="@font/ccdongdong"
-            android:id="@+id/auth_button"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bin_filepass"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:text="인증 하기"
-            android:textSize="30dp" />
-
     </LinearLayout>
 
+    <Button
+        android:fontFamily="@font/ccdongdong"
+        android:id="@+id/auth_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bin_filepass"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginTop="200dp"
+        android:text="인증 하기"
+        android:textSize="30dp" />
 
     </LinearLayout>
 
