@@ -52,25 +52,26 @@
         android:hint="PASSWORD"
         android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/editTextTextgender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="gender"
-        android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/editTextTextage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:hint="age"
-        android:inputType="textPassword"/>
+<!--    <EditText-->
+<!--        android:id="@+id/editTextTextgender"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="gender"-->
+<!--        android:inputType="textPassword" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/editTextTextage"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:hint="age"-->
+<!--        android:inputType="textPassword"/>-->
 
     <Button
         android:fontFamily="@font/ccdongdong"

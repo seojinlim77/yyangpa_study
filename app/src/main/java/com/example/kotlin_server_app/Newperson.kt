@@ -31,7 +31,7 @@ class Newperson : AppCompatActivity(){ // 회원가입 페이지
         clientBuilder.addInterceptor(loggingInterceptor)
 
         var retrofit = Retrofit.Builder()
-                .baseUrl("http://10.20.89.14:8000")
+                .baseUrl("http://223.194.46.83:25900")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(clientBuilder.build())
                 .build()
@@ -41,16 +41,16 @@ class Newperson : AppCompatActivity(){ // 회원가입 페이지
 
 
        registerbutton.setOnClickListener {
-           val intent = Intent(this,MainActivity::class.java) // 회원가입 후 모델 생성 페이지로 이동
+           val intent = Intent(this,MainActivity::class.java) // 회원가입 후 로그인 페이지로 이동
 
            var newname = editTextTextname.text.toString()
            var newId = editTextTextPersonName.text.toString()
            var newPw = editTextTextPassword.text.toString()
-           var newgender = editTextTextgender.text.toString()
-           var buff = editTextTextage.text.toString()
-           var newage = Integer.parseInt(buff)
+           //var newgender = editTextTextgender.text.toString()
+           //var buff = editTextTextage.text.toString()
+           //var newage = Integer.parseInt(buff)
 
-           newuserservice.requestLogin(newId,newPw,newname,newage,newgender).enqueue(object: Callback<New>{
+           newuserservice.requestLogin(newId,newPw,newname).enqueue(object: Callback<New>{
                override fun onFailure(call: Call<New>, t: Throwable) {
                    // 웹 통신에 실패시 실행
                    var dialog = AlertDialog.Builder(this@Newperson)
@@ -62,7 +62,7 @@ class Newperson : AppCompatActivity(){ // 회원가입 페이지
                    var NewU = response.body() // msuccess
                    println("<<<<<<<<<<<<<<<<<<<<<############################3"+NewU)
                    var dialog = AlertDialog.Builder(this@Newperson)
-                   if(NewU?.code == null) // 넘어오는 값이 아무것도 없을 경우 // 애매하긴 함...
+                   if(NewU?.code != null) // 넘어오는 값이 아무것도 없을 경우 // 애매하긴 함...
                    {
                        dialog.setTitle("경고!")
                        dialog.setMessage("정보를 다시 확인하세요.")
@@ -72,8 +72,8 @@ class Newperson : AppCompatActivity(){ // 회원가입 페이지
                        editTextTextname.setText("")
                        editTextTextPersonName.setText("")
                        editTextTextPassword.setText("")
-                       editTextTextgender.setText("")
-                       editTextTextage.setText("")
+                       //editTextTextgender.setText("")
+                       //editTextTextage.setText("")
                    }
                    else
                    {

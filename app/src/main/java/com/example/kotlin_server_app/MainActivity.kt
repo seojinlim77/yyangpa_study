@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         // retrofit 객체 생성
         var retrofit = Retrofit.Builder()
-                .baseUrl("http://10.20.89.14:8000")
+                .baseUrl("http://223.194.46.83:25900")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 

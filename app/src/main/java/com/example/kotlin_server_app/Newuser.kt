@@ -14,9 +14,9 @@ interface Newuser {
             // 여기가 인풋 정의하는 곳
             @Field("username") username:String,
             @Field("password") password:String,
-            @Field("name") name:String,
+            @Field("name") name:String
             //@Field("gender") gender:String,
-            @Field("age") age:Int,
-            @Field("gender") gender:String
+            //@Field("age") age:Int,
+            //@Field("gender") gender:String
     ): Call<New> // 아웃풋을 정의하는 곳
 }
