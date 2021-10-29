@@ -41,6 +41,7 @@ class Authfin : AppCompatActivity() { // 측정 후 인증
         val intent2 = Intent(this,ResultfailActivity::class.java)
         val intent = Intent(this,ResultActivity::class.java)
 
+        // 저장된 토큰 가져오기
         val sharedPreferences = getSharedPreferences("auto_token", 0) // 자동 로그인 토큰 파일
         val token_check = sharedPreferences.getString("token", null)
         val token_s = sharedPreferences.getString("ustoken",null)
@@ -60,7 +61,7 @@ class Authfin : AppCompatActivity() { // 측정 후 인증
                 .build()
 
         var retrofit = Retrofit.Builder()
-                .baseUrl("http://223.194.46.83:25900")
+                .baseUrl("http://10.20.89.14:8000")
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

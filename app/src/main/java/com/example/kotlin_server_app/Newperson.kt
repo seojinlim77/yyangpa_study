@@ -20,6 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Newperson : AppCompatActivity(){ // 회원가입 페이지
 
+    //http://223.194.46.83:25900
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.new_user_page)
@@ -30,7 +31,7 @@ class Newperson : AppCompatActivity(){ // 회원가입 페이지
         clientBuilder.addInterceptor(loggingInterceptor)
 
         var retrofit = Retrofit.Builder()
-                .baseUrl("http://223.194.46.83:25900")
+                .baseUrl("http://10.20.89.14:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(clientBuilder.build())
                 .build()
@@ -76,10 +77,6 @@ class Newperson : AppCompatActivity(){ // 회원가입 페이지
                    }
                    else
                    {
-//                       var dialog3 = AlertDialog.Builder(this@Newperson)
-//                       dialog3.setTitle("회원가입")
-//                       dialog3.setMessage("성공")
-//                       dialog3.show()
                        Toast.makeText(this@Newperson, "회원가입 성공", Toast.LENGTH_SHORT).show()
                        startActivity(intent)
                        finish()

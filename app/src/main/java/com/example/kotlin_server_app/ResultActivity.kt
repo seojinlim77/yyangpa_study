@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.result_page.*
@@ -33,7 +34,7 @@ class ResultActivity : AppCompatActivity() {
 
         logout_button.setOnClickListener {
             var retrofit = Retrofit.Builder()
-                    .baseUrl("http://223.194.46.83:25900")
+                    .baseUrl("http://10.20.89.14:8000")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
 
@@ -47,11 +48,8 @@ class ResultActivity : AppCompatActivity() {
                         println("logok : <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"+logout_message?.code+"<<<<<<<<<<<<<<<<<<<<<<<<<")
                         editor.clear()
                         editor.apply()
+                        Toast.makeText(this@ResultActivity, "로그아웃 성공", Toast.LENGTH_SHORT).show()
                     }
-                    var dialog2 = AlertDialog.Builder(this@ResultActivity)
-                    dialog2.setTitle("로그아웃")
-                    dialog2.setMessage("성공")
-                    dialog2.show()
                 }
 
                 override fun onFailure(call: Call<Logoutt>, t: Throwable) {

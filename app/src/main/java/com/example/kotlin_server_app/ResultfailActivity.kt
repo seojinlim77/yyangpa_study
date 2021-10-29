@@ -3,6 +3,7 @@ package com.example.kotlin_server_app
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.result_page.*
@@ -17,8 +18,6 @@ class ResultfailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.resultfail_page)
-        val TAG = "tokenlogin"
-        var log_token_c : String
 
         val sharedPreferences = getSharedPreferences("auto_token", 0)
         val editor = sharedPreferences.edit()
@@ -33,7 +32,7 @@ class ResultfailActivity : AppCompatActivity() {
 
         logout_button2.setOnClickListener {
             var retrofit = Retrofit.Builder()
-                .baseUrl("http://223.194.46.83:25900")
+                .baseUrl("http://10.20.89.14:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
@@ -42,10 +41,14 @@ class ResultfailActivity : AppCompatActivity() {
 
             logouttoken.logout(real_token).enqueue(object : Callback<Logoutt> { // 토큰 전송
                 override fun onResponse(call: Call<Logoutt>, response: Response<Logoutt>) {
-                    var dialog2 = AlertDialog.Builder(this@ResultfailActivity)
-                    dialog2.setTitle("로그아웃")
-                    dialog2.setMessage("성공")
-                    dialog2.show()
+                    var logout_message = response.body() // 결과 받아오기
+                    if(logout_message?.code == "logout_success")
+                    {
+                        println("logok : <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"+logout_message?.code+"<<<<<<<<<<<<<<<<<<<<<<<<<")
+                        editor.clear()
+                        editor.apply()
+                        Toast.makeText(this@ResultfailActivity, "로그아웃 성공", Toast.LENGTH_SHORT).show()
+                    }
                 }
 
                 override fun onFailure(call: Call<Logoutt>, t: Throwable) {

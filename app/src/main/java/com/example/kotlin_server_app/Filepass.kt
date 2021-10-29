@@ -38,31 +38,27 @@ import java.util.concurrent.TimeUnit
 class Filepass : AppCompatActivity() {
 
     val TAG:String = "Filepass"
-    //var myApplication: MyApplication = MyApplication()
-    //var pfd: ParcelFileDescriptor? = null
-    //var fileInputStream: FileInputStream? = null
-    //var mOutputDir = "/storage/emulated/0/Download/NewTextFile.txt"
 
     fun showPrograss(isShow:Boolean) {
         if (isShow) loading_linear_a.visibility = View.VISIBLE
         else loading_linear_a.visibility = View.GONE
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loginafter)
 
         showPrograss(false)
 
-        val bluetoothpage_ten = Intent(this,BluetoothActivity::class.java)
         val sharedPreferences = getSharedPreferences("auto_token", 0) // 자동 로그인 토큰 파일
         val editor = sharedPreferences.edit()
         val token_check = sharedPreferences.getString("token", null)
         val token_s = sharedPreferences.getString("ustoken",null)
-        //val user_name = sharedPreferences.getString("username",null)
+
         val checktoken = "Token "+token_s
         val checktoken2 = "Token "+token_check
+
+        //intent명
         val ten_seconds = Intent(this,BluetoothActivity::class.java) // 10초 측정
         val ten_minutes = Intent(this,BluetoothActivity2::class.java) // measure2로 이동 (10분 측정)
 
@@ -74,9 +70,9 @@ class Filepass : AppCompatActivity() {
 
             filepassbutton1.setOnClickListener { // 파일 전송 버튼 // 인증 버튼
                 // intent 종류
-                val intent = Intent(this,ResultActivity::class.java)
-                val intent2 = Intent(this,ResultfailActivity::class.java)
-                var model_exist = AlertDialog.Builder(this@Filepass) // 다이얼로그 창
+                //val intent = Intent(this,ResultActivity::class.java)
+                //val intent2 = Intent(this,ResultfailActivity::class.java)
+                //var model_exist = AlertDialog.Builder(this@Filepass) // 다이얼로그 창
 
                 showPrograss(true)
 
@@ -92,7 +88,7 @@ class Filepass : AppCompatActivity() {
                         .build()
 
                 var retrofit = Retrofit.Builder()
-                        .baseUrl("http://223.194.46.83:25900")
+                        .baseUrl("http://10.20.89.14:8000")
                         .client(okHttpClient)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
@@ -105,43 +101,8 @@ class Filepass : AppCompatActivity() {
                     override fun onResponse(call: Call<file_check_request>, response: Response<file_check_request>) {
                         if(response.body()?.code == 200) // 파일이 존재한다면
                         {
-                            println("????????????????????????????999999999999999????????????"+response.body()?.code)
+                            println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF 자동 로그인 코드 : "+response.body()?.code)
                             startActivity(ten_seconds) // 10초 측정하는 곳으로 이동
-
-                            /*
-                            var fileuploadservice = retrofit.create(Uploadfile::class.java)
-                            val file2 = File("/data/user/0/com.example.kotlin_server_app/files/ECG.cvs")
-                            val requestFile = RequestBody.create("*".toMediaTypeOrNull(), file2)
-                            val requestFile1 = RequestBody.create("text/plain".toMediaTypeOrNull(), token_check.toString())
-                            val body1 = MultipartBody.Part.createFormData("EEG", file2.name, requestFile)
-                            val expath = Environment.getExternalStorageDirectory().getAbsolutePath();
-
-                            File(Environment.getExternalStorageDirectory().absolutePath+"/Download/NewTextFile.txt")
-                            fileuploadservice.request(requestFile1,body1).enqueue(object : Callback<Upfile> {
-                                override fun onResponse(call: Call<Upfile>, response: Response<Upfile>) {
-                                    var dialog = AlertDialog.Builder(this@Filepass)
-                                    println("result <<<<<<<<<<<<<<<<<<<<<<<<"+response.body()?.code)
-                                    if (response.body()?.code == "authok") { // 인증 성공
-
-                                        showPrograss(false)
-                                        startActivity(intent) // 인증 성공시 성공 페이지로 이동
-                                        finish()
-                                    } else {
-                                        println("인증 실패")
-                                        startActivity(intent2) // 인증 실패시 실패 페이지로 이동
-                                        finish()
-                                    }
-                                }
-                                override fun onFailure(call: Call<Upfile>, t: Throwable) {
-                                    Log.e(TAG,"error : $t.message")
-                                    var dialog = AlertDialog.Builder(this@Filepass)
-                                    dialog.setTitle("전송실패!")
-                                    dialog.setMessage("다시 시도 하시오")
-                                    dialog.show()
-
-                                }
-                            })
-                            */
 
                         }
                         else if(response.body()?.code == 400)
@@ -176,8 +137,8 @@ class Filepass : AppCompatActivity() {
 
             filepassbutton1.setOnClickListener { // 파일 전송 버튼 // 인증 버튼
                 // intent 종류
-                val intent = Intent(this, ResultActivity::class.java)
-                val intent2 = Intent(this, ResultfailActivity::class.java)
+                //val intent = Intent(this, ResultActivity::class.java)
+                //val intent2 = Intent(this, ResultfailActivity::class.java)
 
                 showPrograss(true)
 
@@ -205,45 +166,9 @@ class Filepass : AppCompatActivity() {
                 filecheckservice.check(checktoken).enqueue(object : Callback<file_check_request> {
                     override fun onResponse(call: Call<file_check_request>, response: Response<file_check_request>) {
                         if (response.body()?.code == 200) { // 파일 존재
-
+                            println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF 일반 로그인 코드 : "+response.body()?.code)
                             startActivity(ten_seconds) // 10초 측정하는 곳으로 이동
-                            /*
-                            var fileuploadservice = retrofit.create(Uploadfile::class.java)
-                            val file2 = File("/data/user/0/com.example.kotlin_server_app/files/ECG.csv")
 
-                            val requestFile = RequestBody.create("*".toMediaTypeOrNull(), file2)
-                            val requestFile1 = RequestBody.create("text/plain".toMediaTypeOrNull(), token_s.toString())
-                            val body1 = MultipartBody.Part.createFormData("EEG", file2.name, requestFile)
-                            val expath = Environment.getExternalStorageDirectory().getAbsolutePath();
-                            File(Environment.getExternalStorageDirectory().absolutePath + "/Download/NewTextFile.txt")
-
-                            println("경로 : " + expath)
-
-                            fileuploadservice.request(requestFile1, body1).enqueue(object : Callback<Upfile> {
-                                override fun onResponse(call: Call<Upfile>, response: Response<Upfile>) {
-                                    var dialog = AlertDialog.Builder(this@Filepass)
-
-                                    println("result <<<<<<<<<<<<<<<<<<<<<<<<" + response.body()?.code)
-                                    if (response.body()?.code == "authok") {
-                                        showPrograss(false)
-                                        startActivity(intent) // 인증 성공시 성공 페이지로 이동
-                                        finish()
-                                    } else {
-                                        println("인증 실패")
-                                        startActivity(intent2) // 인증 실패시 실패 페이지로 이동
-                                        finish()
-                                    }
-                                }
-                                override fun onFailure(call: Call<Upfile>, t: Throwable) {
-                                    Log.e(TAG, "error : $t.message")
-                                    var dialog = AlertDialog.Builder(this@Filepass)
-                                    dialog.setTitle("전송실패!")
-                                    dialog.setMessage("다시 시도 하시오")
-                                    dialog.show()
-
-                                }
-                            })
-                            */
                         } else if (response.body()?.code == 400) {
                             showPrograss(false)
                             file_message.setTitle("파일이 존재하지 않음 - 모델 생성 진행 하시겠습니까?")

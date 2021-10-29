@@ -43,6 +43,7 @@ class Filepass_newuser : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loginnew_after)
 
+        // 로그인시 저장된 토큰 가져오기
         val sharedPreferences = getSharedPreferences("auto_token", 0) // 저장된 토큰 파일
         val editor2 = sharedPreferences.edit()
         val token_s = sharedPreferences.getString("ustoken", null)
@@ -61,70 +62,30 @@ class Filepass_newuser : AppCompatActivity() {
 
         showPrograss(false)
         var retrofit = Retrofit.Builder()
-                .baseUrl("http://223.194.46.83:25900")
+                .baseUrl("http://10.20.89.14:8000")
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
             filepassbutton1.setOnClickListener { // 파일 전송 버튼
                 // intent 종류
-                val intent2 = Intent(this,ResultfailActivity::class.java)
                 val auth_page = Intent(this,Filepass::class.java) // 인증 페이지로 이동
 
                 showPrograss(true)
 
-                //var fileuploadservice = retrofit.create(Uploadfile_new::class.java)
                 val file2 = java.io.File("/data/user/0/com.example.kotlin_server_app/files/BSW_200629_new.mat")
                 val requestFile = RequestBody.create("*/*".toMediaTypeOrNull(), file2)
                 //val requestFile1 = RequestBody.create("text/plain".toMediaTypeOrNull(), token_s.toString()) // 형변환
                 // 일단 multipart 사용하기 위해서 requestbody로 변환
-                //val body1 = MultipartBody.Part.createFormData("EEG", file2.name, requestFile)
+                val body1 = MultipartBody.Part.createFormData("EEG", file2.name, requestFile)
 
                 sleep(10)
-                Toast.makeText(this@Filepass_newuser, "모델 생성 성공", Toast.LENGTH_SHORT).show()
+                //모델 생성되었다고 가정
+                Toast.makeText(this@Filepass_newuser, "모델 생성 성공", Toast.LENGTH_SHORT).show() // toast 메시지
 
                 showPrograss(false)
                 startActivity(auth_page)
 
-                /*
-                fileuploadservice.request(requestFile1, body1).enqueue(object : Callback<Upfile> {
-                    override fun onResponse(call: Call<Upfile>, response: Response<Upfile>) {
-                        var makemodel_ok = AlertDialog.Builder(this@Filepass_newuser) //
-
-                        // 저장되었는지 확인
-                        showPrograss(false)
-                        if (response.body()?.code == "saveok") {
-                            makemodel_ok.setTitle("파일이 생성되었습니다. 인증 페이지로 이동합니다.")
-                            makemodel_ok.setPositiveButton("네", DialogInterface.OnClickListener { dialog, which ->
-                                //auth_page.putExtra("ustoken", ustoken) // 유저 데이터 계속 전달
-                                //auth_page.putExtra("username",username)
-                                //startActivityForResult(auth_page, 1) // 모델 생성 성공시 확인 페이지로 이동
-                                startActivity(auth_page)
-                            })
-                            makemodel_ok.setNegativeButton("아니오", DialogInterface.OnClickListener { dialog, which->
-                            })
-                            makemodel_ok.show()
-                            //dialog.setTitle("모델 생성 성공!")
-                            //dialog.setMessage("생성 성공")
-                            //dialog.show()
-                            //auth_page.putExtra("ustoken", ustoken) // 유저 데이터 계속 전달
-                            //auth_page.putExtra("username",username)
-                            //startActivityForResult(auth_page, 1) // 모델 생성 성공시 확인 페이지로 이동
-                            finish()
-                        } else {
-                            println("모델 생성 실패")
-                        }
-                    }
-
-                    override fun onFailure(call: Call<Upfile>, t: Throwable) {
-                        Log.e(TAG, "error : $t.message")
-                        var dialog = AlertDialog.Builder(this@Filepass_newuser)
-                        dialog.setTitle("모델 생성 실패!")
-                        dialog.setMessage("다시 시도 하시오")
-                        dialog.show()
-                    }
-                })
-                 */
             }
         }
 
