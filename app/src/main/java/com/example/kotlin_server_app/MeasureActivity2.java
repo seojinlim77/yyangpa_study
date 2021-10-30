@@ -19,7 +19,9 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.LineData;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
@@ -58,12 +60,11 @@ public class MeasureActivity2 extends AppCompatActivity implements ServiceConnec
     private LineData line_data;
 
     String filePath;
-    final String fileName = "ECG.csv";
 
     AlertDialog waitingDialog;
 
-    static int time = 600; // API 결과에 따라 10분
-    static int start_time = 4;
+    int time; // API 결과에 따라 10초
+    int start_time;
 
     Timer timer, start_timer;
     TimerTask t, start_t;
@@ -78,6 +79,9 @@ public class MeasureActivity2 extends AppCompatActivity implements ServiceConnec
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_measure);
+
+        time = 600;
+        start_time = 4;
 
         // Dialog
         waitingDialog = new SpotsDialog.Builder()
@@ -142,7 +146,7 @@ public class MeasureActivity2 extends AppCompatActivity implements ServiceConnec
                 time--;
 
                 if (time < 60) {
-                    String timeString = String.valueOf(time) + "초 후에 측정이 종료됩니다.";
+                    String timeString = String.valueOf(time) + "sec";
                     MeasureActivity2.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -151,19 +155,27 @@ public class MeasureActivity2 extends AppCompatActivity implements ServiceConnec
                     });
                     if (time == 0) {
                         receive_flag = false;
+//                        long now = System.currentTimeMillis();
+//                        Date date = new Date(now);
+//                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//                        String getTime = dateFormat.format(date);
+//                        String fileName = "ECG_" + getTime + ".csv";
+                        String fileName = "ECG.csv";
                         writeAllData(filePath, fileName, VoltageList);
 
                         // 소켓 연결 종료 - 종료할지 연결 유지할지 고민.
                         disconnect();
-                        Intent intent = new Intent(getBaseContext(), Filepass_newuser.class); // 모델 생성 페이지로 이동
+                        Intent intent = new Intent(getBaseContext(), Authfin.class); // 인증 페이지로 이동
                         startActivity(intent);
+
 
                         timer.cancel();
                     }
                 }
                 else {
                     int min = time / 60;
-                    String timeString = String.valueOf(min) + "분 후에 측정이 종료됩니다.";
+                    int sec = time % 60;
+                    String timeString = String.valueOf(min) + "min " + sec +"sec";
                     MeasureActivity2.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -193,23 +205,23 @@ public class MeasureActivity2 extends AppCompatActivity implements ServiceConnec
         service.disconnect();
     }
 
-    public void OnClickBtnStart(View view){
-        receive_flag = true;
-        receivedData = "";
-    }
+//    public void OnClickBtnStart(View view){
+//        receive_flag = true;
+//        receivedData = "";
+//    }
+//
+//    public void OnClickBtnEnd(View view){ receive_flag = false;
+//    }
 
-    public void OnClickBtnEnd(View view){ receive_flag = false;
-    }
-
-    public void OnClickBtnSave(View view){
-        writeAllData(filePath, fileName, VoltageList);
-        Toast.makeText(this.getApplicationContext(), "저장완료", Toast.LENGTH_LONG).show();
-
-        // 소켓 연결 종료 - 종료할지 연결 유지할지 고민.
-        disconnect();
-        Intent intent = new Intent(getBaseContext(), TempActivity.class);
-        startActivity(intent);
-    }
+//    public void OnClickBtnSave(View view){
+//        writeAllData(filePath, fileName, VoltageList);
+//        Toast.makeText(this.getApplicationContext(), "저장완료", Toast.LENGTH_LONG).show();
+//
+//        // 소켓 연결 종료 - 종료할지 연결 유지할지 고민.
+//        disconnect();
+//        Intent intent = new Intent(getBaseContext(), TempActivity.class);
+//        startActivity(intent);
+//    }
 
     private void receive(byte[] data){
         if (receive_flag){

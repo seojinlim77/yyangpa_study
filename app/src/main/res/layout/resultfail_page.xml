@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fontFamily="@font/ccdongdong"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,90 +10,84 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/fail_gif"
         android:layout_width="match_parent"
-        android:layout_height="225dp"
-        android:orientation="vertical"
-        android:background="#FF0000">
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ImageView>
+
+    <LinearLayout
+        android:id="@+id/loading_linear_a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/fail_msg"
+            android:layout_width="117dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="-- RESULT --"
-            android:fontFamily="@font/ccdongdong"
-            android:textColor="@color/white"
-            android:layout_marginBottom="20dp"
-            android:textSize="30dp">
+            android:layout_margin="10dp"
+            android:text="실패"
+            android:textAlignment="center"
+            android:textColor="#FF0000"
+            android:textSize="50dp"
+            android:shadowRadius="20.0"
+            android:shadowDx="7.0"
+            android:shadowDy="7.0"
+            android:shadowColor="#000000"
+            android:textStyle="italic|bold"
+            app:layout_constraintBottom_toTopOf="@+id/warning_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        </TextView>
 
-
-        <ImageView
-            android:layout_width="368dp"
-            android:layout_height="139dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
-            android:background="@null"
-            android:src="@drawable/egg_icon">
-
-        </ImageView>
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/messageText"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="귀하의 인증 결과는"
-        android:fontFamily="@font/ccdongdong"
-        android:textColor="@color/black"
-        android:layout_marginBottom="20dp"
-        android:textSize="30dp">
-
-    </TextView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="실패"
-        android:fontFamily="@font/ccdongdong"
-        android:textColor="#E80909"
-        android:layout_marginBottom="20dp"
-        android:textSize="50dp">
-
-    </TextView>
 
     <Button
         android:id="@+id/logout_button2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custon_fail"
-        android:layout_marginTop="140dp"
-        android:fontFamily="@font/ccdongdong"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="50dp"
+        android:background="@drawable/bin_red"
+        android:text="로그아웃"
         android:textColor="@color/white"
-        android:text="LOGOUT page"
-        android:textSize="30dp" />
+        android:textSize="20dp"
+        android:textStyle="italic|bold"
+        app:layout_constraintBottom_toTopOf="@+id/result_home2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loading_linear_a"
+        app:layout_constraintVertical_bias="0.412" />
 
     <Button
         android:id="@+id/result_home2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custon_fail"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/ccdongdong"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="50dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/bin_red"
         android:text="exit"
-        android:textSize="30dp" />
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="italic|bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loading_linear_a" />
 
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

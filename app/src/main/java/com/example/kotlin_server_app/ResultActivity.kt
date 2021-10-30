@@ -4,10 +4,15 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.result_page.*
+import kotlinx.android.synthetic.main.resultfail_page.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,6 +27,11 @@ class ResultActivity : AppCompatActivity() {
         val TAG = "tokenlogin"
         var log_token_c : String
 
+        val ecg = findViewById<View>(R.id.success_gif) as ImageView
+        Glide.with(this).asGif().load(R.raw.heart_rate).into(ecg)
+        val animation = AnimationUtils.loadAnimation(this,R.anim.top)
+        success_msg.startAnimation(animation)
+
         val sharedPreferences = getSharedPreferences("auto_token", 0)
         val editor = sharedPreferences.edit()
 
@@ -34,7 +44,7 @@ class ResultActivity : AppCompatActivity() {
 
         logout_button.setOnClickListener {
             var retrofit = Retrofit.Builder()
-                    .baseUrl("http://10.20.89.14:8000")
+                    .baseUrl("http://223.194.46.83:25900")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
 

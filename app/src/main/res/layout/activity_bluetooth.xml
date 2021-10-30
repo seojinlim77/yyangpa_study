@@ -58,7 +58,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
-        android:background="@drawable/login_round"
+        android:background="@drawable/bin_red"
+        android:textStyle="italic|bold"
         android:textColor="@color/white"
         android:onClick="OnClickBtnSearch"
         android:text="bluetooth" />

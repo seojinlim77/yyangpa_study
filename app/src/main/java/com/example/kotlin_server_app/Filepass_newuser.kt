@@ -70,7 +70,7 @@ class Filepass_newuser : AppCompatActivity() {
 
         showPrograss(false)
         var retrofit = Retrofit.Builder()
-                .baseUrl("http://10.20.89.14:8000")
+                .baseUrl("http://223.194.46.83:25900")
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -87,7 +87,7 @@ class Filepass_newuser : AppCompatActivity() {
                 // 일단 multipart 사용하기 위해서 requestbody로 변환
                 val body1 = MultipartBody.Part.createFormData("EEG", file2.name, requestFile)
 
-                sleep(10)
+                sleep(2000)
                 //모델 생성되었다고 가정
                 Toast.makeText(this@Filepass_newuser, "모델 생성 성공", Toast.LENGTH_SHORT).show() // toast 메시지
 
