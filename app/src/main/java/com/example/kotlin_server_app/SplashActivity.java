@@ -18,7 +18,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
 
         ImageView ecg = (ImageView) findViewById(R.id.splash_gif);
-        Glide.with(this).asGif().load(R.raw.splash_image).into(ecg);
+        Glide.with(this).asGif().load(R.raw.heart_rate).into(ecg);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

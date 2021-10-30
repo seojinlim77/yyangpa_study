@@ -13,8 +13,13 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_loginafter.*
+import kotlinx.android.synthetic.main.activity_loginafter.filepassbutton1
+import kotlinx.android.synthetic.main.activity_loginnew_after.*
+//import kotlinx.android.synthetic.main.activity_loginnew_after.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.loading_linear
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
@@ -42,6 +47,9 @@ class Filepass_newuser : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loginnew_after)
+
+        val ecg = findViewById<View>(R.id.iv_authentication_gif) as ImageView
+        Glide.with(this).asGif().load(R.raw.heart_rate).into(ecg)
 
         // 로그인시 저장된 토큰 가져오기
         val sharedPreferences = getSharedPreferences("auto_token", 0) // 저장된 토큰 파일
@@ -85,8 +93,16 @@ class Filepass_newuser : AppCompatActivity() {
 
                 showPrograss(false)
                 startActivity(auth_page)
+                finish()
 
             }
         }
 
+    override fun onPause() {
+        super.onPause()
+        finish()
     }
+}
+
+
+

@@ -10,10 +10,6 @@ class first_activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
         val customView = custom_view(this)
-
     }
-
-
 }

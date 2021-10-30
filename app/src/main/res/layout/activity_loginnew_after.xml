@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fontFamily="@font/ccdongdong"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,42 +9,26 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/iv_authentication_gif"
         android:layout_width="match_parent"
-        android:layout_height="225dp"
-        android:orientation="vertical"
-        android:background="@color/purple_200">
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:fontFamily="@font/ccdongdong"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="model 생성"
-            android:textColor="@color/white"
-            android:layout_marginBottom="20dp"
-            android:textSize="30dp">
+    </ImageView>
 
-        </TextView>
-
-        <ImageView
-            android:layout_width="368dp"
-            android:layout_height="139dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
-            android:background="@null"
-            android:src="@drawable/modeling_icon">
-
-        </ImageView>
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/loading_linear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -54,33 +39,54 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="생성중.." />
+            android:text="인증중...." />
 
     </LinearLayout>
 
-
-
-
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/messageText2"
-        android:layout_marginTop="10dp"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        />
-
-    <Button
-        android:fontFamily="@font/ccdongdong"
-        android:id="@+id/filepassbutton1"
+        android:id="@+id/warning_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bin_filepass"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/warning_content"
+        android:layout_margin="10dp"
+        android:text="주의사항"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="15dp"/>
+
+    <TextView
+        android:id="@+id/warning_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/filepassbutton1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="100dp"
+        android:text="심전도 측정 시 움직이지 마세요.\n전자기기와 멀리 떨어져서 측정을 진행하세요."
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15dp"/>
+
+    <Button
+        android:id="@+id/filepassbutton1"
         android:textColor="@color/white"
-        android:text="모델 생성"
-        android:textSize="30dp" />
+        android:background="@drawable/bin_red"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_margin="50dp"
+        android:text="모델생성"
+        android:textSize="20dp"
+        android:textStyle="italic|bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-
-</LinearLayout>
