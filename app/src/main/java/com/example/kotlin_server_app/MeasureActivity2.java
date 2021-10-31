@@ -165,7 +165,7 @@ public class MeasureActivity2 extends AppCompatActivity implements ServiceConnec
 
                         // 소켓 연결 종료 - 종료할지 연결 유지할지 고민.
                         disconnect();
-                        Intent intent = new Intent(getBaseContext(), Authfin.class); // 인증 페이지로 이동
+                        Intent intent = new Intent(getBaseContext(), Filepass_newuser.class); // 인증 페이지로 이동
                         startActivity(intent);
 
 

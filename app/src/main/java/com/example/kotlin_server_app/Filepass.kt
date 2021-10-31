@@ -85,7 +85,7 @@ class Filepass : AppCompatActivity() {
                         .build()
 
                 var retrofit = Retrofit.Builder()
-                        .baseUrl("http://10.20.89.14:8000")
+                        .baseUrl("http://223.194.46.83:25900")
                         .client(okHttpClient)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
