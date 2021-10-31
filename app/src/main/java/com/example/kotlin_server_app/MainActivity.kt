@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         // 회원가입 버튼
         new_user_button.setOnClickListener {
-            val intent2 = Intent(this, ResultActivity::class.java)
+            val intent2 = Intent(this, Newperson::class.java)
             startActivity(intent2) // 회원 가입 페이지로 이동
             finish()
         }
