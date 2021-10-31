@@ -60,9 +60,9 @@ class Newperson : AppCompatActivity(){ // 회원가입 페이지
                }
                override fun onResponse(call: Call<New>, response: Response<New>) {
                    var NewU = response.body() // msuccess
-                   println("<<<<<<<<<<<<<<<<<<<<<############################3"+NewU)
+                   println("<<<<<<<<<<<<<<<<<<<<<############################3"+NewU?.code)
                    var dialog = AlertDialog.Builder(this@Newperson)
-                   if(NewU?.code != 200) // 넘어오는 값이 아무것도 없을 경우 // 애매하긴 함...
+                   if(NewU?.code != 200)
                    {
                        dialog.setTitle("경고!")
                        dialog.setMessage("정보를 다시 확인하세요.")

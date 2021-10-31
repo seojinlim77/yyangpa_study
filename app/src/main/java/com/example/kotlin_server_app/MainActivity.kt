@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         // 자동로그인
         if (token_check != null) {
-            startActivity(bluetooth_active); // 토큰 존재시 파일 받는 페이지로 이동 (블루투스)
+            startActivity(bluetooth_active); // 토큰 존재시 인증페이지 (블루투스 10초)
         }
 
         // retrofit 객체 생성
