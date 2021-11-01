@@ -54,13 +54,13 @@
 
 
     <Button
-        android:id="@+id/logout_button2"
+        android:id="@+id/remeasure_button2"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_margin="50dp"
         android:background="@drawable/bin_red"
-        android:text="로그아웃"
+        android:text="다시 측정"
         android:textColor="@color/white"
         android:textSize="20dp"
         android:textStyle="italic|bold"
@@ -79,7 +79,7 @@
         android:layout_margin="50dp"
         android:layout_marginBottom="100dp"
         android:background="@drawable/bin_red"
-        android:text="exit"
+        android:text="home"
         android:textColor="@color/white"
         android:textSize="20dp"
         android:textStyle="italic|bold"

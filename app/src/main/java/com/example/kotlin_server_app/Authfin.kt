@@ -1,20 +1,20 @@
 package com.example.kotlin_server_app
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlin_server_app.MeasureActivity.retrofit
-import kotlinx.android.synthetic.main.activity_loginafter.*
+import com.github.mikephil.charting.data.LineData
 import kotlinx.android.synthetic.main.activity_loginafter.loading_linear_a
 import kotlinx.android.synthetic.main.loading_page.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,19 +27,43 @@ class Authfin : AppCompatActivity() { // 측정 후 인증
 
     val TAG:String = "Auth_fin"
 
-    fun showPrograss(isShow:Boolean) {
-        if (isShow) loading_linear_a.visibility = View.VISIBLE
-        else loading_linear_a.visibility = View.GONE
-    }
+//    fun showPrograss(isShow:Boolean) {
+//        if (isShow) loading_linear_a.visibility = View.VISIBLE
+//        else loading_linear_a.visibility = View.GONE
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.loading_page)
 
-        showPrograss(false)
+        //showPrograss(false)
 
         val intent2 = Intent(this,ResultfailActivity::class.java)
         val intent = Intent(this,ResultActivity::class.java)
+
+        // chart
+
+        // chart
+//        val line_data = LineData()
+//        chart.setBackgroundColor(Color.rgb(250, 250, 250))
+//        chart.description = null
+//        chart.axisLeft.setDrawGridLines(false)
+//        chart.xAxis.setDrawGridLines(false)
+//        chart.axisLeft.setDrawLabels(false)
+//        chart.axisRight.setDrawLabels(false)
+//        chart.xAxis.setDrawLabels(false)
+//        chart.legend.isEnabled = false // Hide the legend
+//
+//        val lyl = chart.axisLeft
+//
+//        // 보여질 위치
+//
+//        // 보여질 위치
+//        lyl.axisMaximum = 4f
+//        lyl.axisMinimum = -4f
+
+
 
         // 저장된 토큰 가져오기
         val sharedPreferences = getSharedPreferences("auto_token", 0) // 자동 로그인 토큰 파일
@@ -50,7 +74,7 @@ class Authfin : AppCompatActivity() { // 측정 후 인증
         var fileuploadservice = retrofit.create(Uploadfile::class.java)
         val file2 = File("/data/user/0/com.example.kotlin_server_app/files/ECG.csv")
         val requestFile = RequestBody.create("*/*".toMediaTypeOrNull(), file2)
-        val requestFile1 = RequestBody.create("text/plain".toMediaTypeOrNull(), checktoken.toString())
+        //val requestFile1 = RequestBody.create("text/plain".toMediaTypeOrNull(), checktoken.toString())
         val body1 = MultipartBody.Part.createFormData("ECG", file2.name, requestFile)
 
 
@@ -69,20 +93,19 @@ class Authfin : AppCompatActivity() { // 측정 후 인증
         var fileupload = retrofit.create(Uploadfile::class.java)
 
         println("*****************************************************************************")
-        auth_button.setOnClickListener {
-
-            showPrograss(true)
+        auth_button_ok.setOnClickListener {
+            //showPrograss(true)
             fileupload.request(checktoken, body1).enqueue(object : Callback<Upfile> {
                 override fun onResponse(call: Call<Upfile>, response: Response<Upfile>) {
                     var dialog = AlertDialog.Builder(this@Authfin)
                     println("result <<<<<<<<<<<<<<<<<<<<<<<<" + response.body()?.code)
                     if (response.body()?.code == 200) { // 인증 성공
-                        showPrograss(false)
+                        //showPrograss(false)
                         startActivity(intent) // 인증 성공시 성공 페이지로 이동
                         finish()
                     } else {
                         println("인증 실패")
-                        showPrograss(false)
+                        //showPrograss(false)
                         startActivity(intent2) // 인증 실패시 실패 페이지로 이동
                         finish()
                     }

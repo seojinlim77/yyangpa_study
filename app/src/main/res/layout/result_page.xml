@@ -79,7 +79,7 @@
         android:layout_margin="50dp"
         android:layout_marginBottom="100dp"
         android:background="@drawable/bin_red"
-        android:text="exit"
+        android:text="home"
         android:textColor="@color/white"
         android:textSize="20dp"
         android:textStyle="italic|bold"

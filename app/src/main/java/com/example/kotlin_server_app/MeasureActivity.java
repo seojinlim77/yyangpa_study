@@ -4,11 +4,17 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.icu.util.Measure;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +25,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.LineData;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +36,12 @@ import java.util.regex.Pattern;
 
 import android.app.AlertDialog;
 import dmax.dialog.SpotsDialog;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
@@ -41,11 +53,11 @@ import retrofit2.http.Query;
 import static com.example.kotlin_server_app.Utils.addEntry;
 import static com.example.kotlin_server_app.Utils.hexToVoltage;
 import static com.example.kotlin_server_app.Utils.writeAllData;
+import static java.sql.DriverManager.println;
 
 // Fragment 쪽 코드
 public class MeasureActivity extends AppCompatActivity implements ServiceConnection, SerialListener {
     private ArrayList<Float> VoltageList = new ArrayList<Float>();
-
     private enum Connected { False, Pending, True }
 
     private SerialService service;
@@ -69,6 +81,7 @@ public class MeasureActivity extends AppCompatActivity implements ServiceConnect
     Timer timer, start_timer;
     TimerTask t, start_t;
 
+
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://223.194.46.83:25900")
             .addConverterFactory(GsonConverterFactory.create())
@@ -80,7 +93,7 @@ public class MeasureActivity extends AppCompatActivity implements ServiceConnect
 
         setContentView(R.layout.activity_measure);
 
-        time = 10;
+        time = 12;
         start_time = 4;
 
         // Dialog
@@ -160,14 +173,101 @@ public class MeasureActivity extends AppCompatActivity implements ServiceConnect
 //                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 //                        String getTime = dateFormat.format(date);
 //                        String fileName = "ECG_" + getTime + ".csv";
+
                         String fileName = "ECG.csv";
                         writeAllData(filePath, fileName, VoltageList);
-
-                        // 소켓 연결 종료 - 종료할지 연결 유지할지 고민.
                         disconnect();
+                        //MeasureActivity.this.runOnUiThread(new Runnable() {
+                            //public void run() {
+
+//                        Handler mHandler = new Handler(Looper.getMainLooper());
+//                        mHandler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                AlertDialog.Builder builder = new AlertDialog.Builder(MeasureActivity.this);
+//                                builder.setTitle("인증하시겠습니까?");
+//                                //builder.setMessage()
+//                                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//
+//                                        Log.d("PositiveButtonClick","예 누름1");
+//                                        println("*****************************************************************************");
+//                                        // 저장된 토큰 가져오기
+//                                        SharedPreferences sf = getSharedPreferences("auto_token",0); //text라는 key에 저장된 값이 있는지 확인. 아무값도 들어있지 않으면 ""를 반환
+//                                        String token_check = sf.getString("token",null);
+//                                        String token_s = sf.getString("ustoken",null);
+//                                        String checktoken = "Token "+token_s;
+//
+//                                        Log.d("PositiveButtonClick","예 누름2");
+//                                        Uploadfile fileuploadservice = retrofit.create(Uploadfile.class);
+//
+//                                        File fileFile = getFilesDir();
+//                                        String getFile = fileFile.getPath();
+//                                        RequestBody requestFile = RequestBody.create(MediaType.parse("*/*"),fileFile);
+//                                        MultipartBody.Part body1 = MultipartBody.Part.createFormData("ECG", getFile, requestFile);
+//
+//                                        Log.d("PositiveButtonClick","예 누름3");
+//                                        //println("*****************************************************************************");
+//
+//                                        Log.d("PositiveButtonClick","예 누름4");
+//                                        Call<Upfile> call = fileuploadservice.request(checktoken,body1);
+//
+//                                        call.enqueue(new Callback<Upfile>() {
+//                                            @Override
+//                                            public void onResponse(Call<Upfile> call, Response<Upfile> response) {
+//                                                if(response.isSuccessful()){
+//                                                    Log.d("PositiveButtonClick","예 누름5");
+//                                                    Upfile result = response.body();
+//                                                    if(result.toString() == "true")
+//                                                    {
+//                                                        Intent intent = new Intent(getBaseContext(), ResultActivity.class); // 인증 페이지로 이동
+//                                                        startActivity(intent);
+//                                                        timer.cancel();
+//                                                    }
+//                                                    else // false 값이 들어오면
+//                                                    {
+//                                                        Intent intent1 = new Intent(getBaseContext(), ResultfailActivity.class); // 인증 페이지로 이동
+//                                                        startActivity(intent1);
+//                                                    }
+//                                                }
+//                                            }
+//
+//                                            @Override
+//                                            public void onFailure(Call<Upfile> call, Throwable t) {
+//                                                Log.d("PositiveButtonClick","예 누름6");
+//                                                println(")))))))))))))))))))))????????????????????????????/ 통신 오류");
+//                                            }
+//                                        });
+//                                    }
+//                                });
+//                                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        Log.d("NegativeButtonClick","아니오 누름");
+//
+//                                    }
+//                                });
+////                                AlertDialog alertDialog = builder.create();
+////
+////                                alertDialog.show();
+//                                builder.show();
+//                            }
+//                        }, 0);
+//
+
+
+                        //});
+
+/////////////////////////////////////////////////////////////////////////
+                        // 소켓 연결 종료 - 종료할지 연결 유지할지 고민.
+                        //disconnect();
                         Intent intent = new Intent(getBaseContext(), Authfin.class); // 인증 페이지로 이동
                         startActivity(intent);
 
+                        //showPrograss(false)
+
+                        //}
 
                         timer.cancel();
                     }

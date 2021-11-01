@@ -41,34 +41,35 @@ class ResultfailActivity : AppCompatActivity() {
 
         val real_token = "Token "+user_token
 
-        logout_button2.setOnClickListener {
+        remeasure_button2.setOnClickListener {
             var retrofit = Retrofit.Builder()
                 .baseUrl("http://223.194.46.83:25900")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
             var logouttoken = retrofit.create(Logouttoken::class.java)
+            var remeasure = retrofit.create(BluetoothActivity::class.java)
 
 
-            logouttoken.logout(real_token).enqueue(object : Callback<Logoutt> { // 토큰 전송
-                override fun onResponse(call: Call<Logoutt>, response: Response<Logoutt>) {
-                    var logout_message = response.body() // 결과 받아오기
-                    if(logout_message?.code == "logout_success")
-                    {
-                        println("logok : <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"+logout_message?.code+"<<<<<<<<<<<<<<<<<<<<<<<<<")
-                        editor.clear()
-                        editor.apply()
-                        Toast.makeText(this@ResultfailActivity, "로그아웃 성공", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<Logoutt>, t: Throwable) {
-                    var dialog3 = AlertDialog.Builder(this@ResultfailActivity)
-                    dialog3.setTitle("로그아웃")
-                    dialog3.setMessage("실패")
-                    dialog3.show()
-                }
-            })
+//            logouttoken.logout(real_token).enqueue(object : Callback<Logoutt> { // 토큰 전송
+//                override fun onResponse(call: Call<Logoutt>, response: Response<Logoutt>) {
+//                    var logout_message = response.body() // 결과 받아오기
+//                    if(logout_message?.code == "logout_success")
+//                    {
+//                        println("logok : <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"+logout_message?.code+"<<<<<<<<<<<<<<<<<<<<<<<<<")
+//                        editor.clear()
+//                        editor.apply()
+//                        Toast.makeText(this@ResultfailActivity, "로그아웃 성공", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<Logoutt>, t: Throwable) {
+//                    var dialog3 = AlertDialog.Builder(this@ResultfailActivity)
+//                    dialog3.setTitle("로그아웃")
+//                    dialog3.setMessage("실패")
+//                    dialog3.show()
+//                }
+//            })
         }
 
         result_home2.setOnClickListener {

@@ -80,7 +80,7 @@ public class MeasureActivity2 extends AppCompatActivity implements ServiceConnec
 
         setContentView(R.layout.activity_measure);
 
-        time = 600;
+        time = 630;
         start_time = 4;
 
         // Dialog
@@ -155,12 +155,12 @@ public class MeasureActivity2 extends AppCompatActivity implements ServiceConnec
                     });
                     if (time == 0) {
                         receive_flag = false;
-//                        long now = System.currentTimeMillis();
-//                        Date date = new Date(now);
-//                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//                        String getTime = dateFormat.format(date);
-//                        String fileName = "ECG_" + getTime + ".csv";
-                        String fileName = "ECG.csv";
+                        long now = System.currentTimeMillis();
+                        Date date = new Date(now);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        String getTime = dateFormat.format(date);
+                        String fileName = "ECG_" + getTime + ".csv";
+                        //String fileName = "ECG.csv";
                         writeAllData(filePath, fileName, VoltageList);
 
                         // 소켓 연결 종료 - 종료할지 연결 유지할지 고민.

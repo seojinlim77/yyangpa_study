@@ -31,7 +31,8 @@
         <activity android:name="MeasureActivity"/>
         <activity android:name="BluetoothActivity2"/>
         <activity android:name="MeasureActivity2"/>
-        <activity android:name="Authfin"/>
+        <activity android:name="Authfin"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog"/>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
