@@ -62,18 +62,14 @@ class Newperson : AppCompatActivity(){ // 회원가입 페이지
                    var NewU = response.body() // msuccess
                    println("<<<<<<<<<<<<<<<<<<<<<############################3"+NewU?.code)
                    var dialog = AlertDialog.Builder(this@Newperson)
-                   if(NewU?.code != 200)
-                   {
+                   if(NewU?.code != 200) {
                        dialog.setTitle("경고!")
-                       dialog.setMessage("정보를 다시 확인하세요.")
-                       //dialog.setMessage("정보를 정확시 다 작성하세요.")
+                       dialog.setMessage("이미 존재하는 계정 입니다.")
                        dialog.show()
 
                        editTextTextname.setText("")
                        editTextTextPersonName.setText("")
                        editTextTextPassword.setText("")
-                       //editTextTextgender.setText("")
-                       //editTextTextage.setText("")
                    }
                    else
                    {

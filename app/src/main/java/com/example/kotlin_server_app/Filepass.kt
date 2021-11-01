@@ -38,15 +38,6 @@ class Filepass : AppCompatActivity() {
         val ecg = findViewById<View>(R.id.iv_authentication_gif) as ImageView
         Glide.with(this).asGif().load(R.raw.heart_rate).into(ecg)
 
-        /*
-        val handler = Handler()
-        handler.postDelayed({
-            val intent = Intent(applicationContext, Filepass::class.java)
-            startActivity(intent)
-            finish()
-        }, 3000)
-        */
-
         val sharedPreferences = getSharedPreferences("auto_token", 0) // 자동 로그인 토큰 파일
         val editor = sharedPreferences.edit()
         val token_check = sharedPreferences.getString("token", null)
@@ -66,10 +57,6 @@ class Filepass : AppCompatActivity() {
 
 
             filepassbutton1.setOnClickListener { // 파일 전송 버튼 // 인증 버튼
-                // intent 종류
-                //val intent = Intent(this,ResultActivity::class.java)
-                //val intent2 = Intent(this,ResultfailActivity::class.java)
-                //var model_exist = AlertDialog.Builder(this@Filepass) // 다이얼로그 창
 
                 showPrograss(true)
 
@@ -114,6 +101,7 @@ class Filepass : AppCompatActivity() {
                         }
                         else
                         {
+                            println("))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))"+response.body()?.code)
                             file_message.setTitle("걍 오류")
                             file_message.show()
                             //makemodel.putExtra("ustoken",token_check) // 토큰 전송
@@ -133,9 +121,6 @@ class Filepass : AppCompatActivity() {
             val makemodels = Intent(this, Filepass_newuser::class.java)
 
             filepassbutton1.setOnClickListener { // 파일 전송 버튼 // 인증 버튼
-                // intent 종류
-                //val intent = Intent(this, ResultActivity::class.java)
-                //val intent2 = Intent(this, ResultfailActivity::class.java)
 
                 showPrograss(true)
 

@@ -81,7 +81,7 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_margin="50dp"
-        android:text="인증하기"
+        android:text="인증 진행"
         android:textSize="20dp"
         android:textStyle="italic|bold"
         app:layout_constraintStart_toStartOf="parent"

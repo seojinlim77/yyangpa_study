@@ -41,14 +41,14 @@ class MainActivity : AppCompatActivity() {
 
         val token_check = sharedPreferences.getString("token", null)
         val authentication_page = Intent(this, Filepass::class.java)
-        val bluetooth_active = Intent(this,BluetoothActivity::class.java) // 모듈 선택창 intent
+        //val bluetooth_active = Intent(this,BluetoothActivity::class.java) // 모듈 선택창 intent
 
         //var api: ApiInterface
         showPrograss(false)
 
         // 자동로그인
         if (token_check != null) {
-            startActivity(bluetooth_active); // 토큰 존재시 인증페이지 (블루투스 10초)
+            startActivity(authentication_page); // 토큰 존재시 인증페이지 (블루투스 10초)
         }
 
         // retrofit 객체 생성
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
             showPrograss(true)
 
-            val intent = Intent(this, Filepass::class.java)
+            //val intent = Intent(this, Filepass::class.java)
 
             // 로그인 버튼 클릭 시 다음 화면으로 넘김
             val loginkeep = Intent(this, MainActivity::class.java)
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
 
                     if (login?.token == null) {
                         var file_messages = androidx.appcompat.app.AlertDialog.Builder(this@MainActivity)
-                        file_messages.setTitle("회원가입된 사용자가 아닙니다.")
+                        file_messages.setTitle("아이디 또는 비밀번호가 틀렸습니다.")
                         file_messages.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
                         })
                         file_messages.show()

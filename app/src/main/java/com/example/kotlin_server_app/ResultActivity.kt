@@ -72,8 +72,10 @@ class ResultActivity : AppCompatActivity() {
         }
 
         result_home.setOnClickListener {
-            exit_message.setTitle("정말로 종료하시겠습니까?")
+            val measure_ten = Intent(this,MeasureActivity::class.java)
+            exit_message.setTitle("측정 화면으로 이동하시겠습니까?")
             exit_message.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                startActivity(measure_ten)
                 finish()
             })
             exit_message.setNegativeButton("아니오", DialogInterface.OnClickListener { dialog, which->
