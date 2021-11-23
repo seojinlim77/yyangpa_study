@@ -92,7 +92,7 @@ class Filepass_newuser : AppCompatActivity() {
                 Toast.makeText(this@Filepass_newuser, "모델 생성 성공", Toast.LENGTH_SHORT).show() // toast 메시지
 
                 showPrograss(false)
-                //startActivity(auth_page)
+                startActivity(auth_page)
                 finish()
 
             }

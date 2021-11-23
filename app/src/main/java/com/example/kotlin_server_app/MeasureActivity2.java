@@ -80,7 +80,7 @@ public class MeasureActivity2 extends AppCompatActivity implements ServiceConnec
 
         setContentView(R.layout.activity_measure);
 
-        time = 630;
+        time = 30;
         start_time = 4;
 
         // Dialog
