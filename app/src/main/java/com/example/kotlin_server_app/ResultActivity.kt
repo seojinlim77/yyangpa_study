@@ -60,7 +60,7 @@ class ResultActivity : AppCompatActivity() {
                         editor.clear()
                         editor.apply()
                         Toast.makeText(this@ResultActivity, "로그아웃 성공", Toast.LENGTH_SHORT).show()
-                        startActivity(loginpage) // 로그인 페이지로 이동
+                        startActivity(loginpage) // 로그인 페이지로 이동함
                     }
                 }
 

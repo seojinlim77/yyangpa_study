@@ -71,7 +71,6 @@ class ResultfailActivity : AppCompatActivity() {
 //                }
 //            })
         }
-
     }
     override fun onPause() {
         super.onPause()
