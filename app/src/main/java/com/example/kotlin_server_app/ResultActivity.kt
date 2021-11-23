@@ -73,7 +73,6 @@ class ResultActivity : AppCompatActivity() {
         }
 
 
-
         result_home.setOnClickListener {
             val measure_ten = Intent(this,Filepass::class.java)
             exit_message.setTitle("인증 화면으로 이동하시겠습니까?")
