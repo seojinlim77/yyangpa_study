@@ -63,7 +63,6 @@ class ResultActivity : AppCompatActivity() {
                         startActivity(loginpage) // 로그인 페이지로 이동함
                     }
                 }
-
                 override fun onFailure(call: Call<Logoutt>, t: Throwable) {
                     var dialog3 = AlertDialog.Builder(this@ResultActivity)
                     dialog3.setTitle("로그아웃")
